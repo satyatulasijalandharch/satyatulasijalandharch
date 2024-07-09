@@ -34,10 +34,6 @@
 - 🌐 Open source projects that push the boundaries of innovation.
 - 💻 Anything related to DevOps, automation, and cloud technologies.
 
-### 📊 GitHub Stats:
-
-[![Satya Tulasi's GitHub Stats](https://github-readme-stats.vercel.app/api?username=satyatulasijalandharch&show_icons=true&count_private=true&hide=issues&theme=radical)](https://github.com/satyatulasijalandharch)
-
 ### 🌟 Fun Fact:
 
 Did you know? I once hiked to the top of a mountain just to see the sunrise! 🌄
