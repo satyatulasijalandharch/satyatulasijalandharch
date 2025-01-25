@@ -26,7 +26,7 @@
 ### 💬 Let's Connect!
 
 - 📫 **How to reach me:**
-  - LinkedIn: [Connect with me on LinkedIn](https://www.linkedin.com/in/satya-tulasi-jalandhar-c-h)
+  - LinkedIn: [Connect with me on LinkedIn](https://www.linkedin.com/in/satyatulasijalandharch)
   - Email: [Drop me an email](mailto:satyatulasijalandharch2@gmail.com)
 
 ### 🤝 Open to Collaboration On:
