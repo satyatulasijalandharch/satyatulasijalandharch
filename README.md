@@ -16,7 +16,7 @@
 
 - **Cloud Platforms:** ![AWS](https://custom-icon-badges.demolab.com/badge/AWS-%23FF9900.svg?logo=aws&logoColor=white) ![Oracle](https://custom-icon-badges.demolab.com/badge/Oracle-F80000.svg?logo=oracle&logoColor=white)
 - **Infrastructure as Code (IaC):** ![Terraform](https://img.shields.io/badge/-Terraform-623CE4?logo=terraform&logoColor=white) ![AWS CDK](https://custom-icon-badges.demolab.com/badge/AWS_CDK-FF9900.svg?logo=aws&logoColor=white)
-- **CI/CD:** ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?logo=githubactions&logoColor=white) ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white) ![ArgoCD](https://img.shields.io/badge/-ArgoCD-EF7B4D?logo=argo&logoColor=white)
+- **CI/CD:** ![GitHub Actions](https://img.shields.io/badge/Github%20Actions-%232671E5.svg?logo=githubactions&logoColor=white) ![Jenkins](https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white) ![ArgoCD](https://img.shields.io/badge/-ArgoCD-EF7B4D?logo=argo&logoColor=white)
 - **Containerization and Orchestration:** ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?logo=kubernetes&logoColor=white) ![Portainer](https://img.shields.io/badge/-Portainer-13BEF9?logo=portainer&logoColor=white)
 - **Version Control:** ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)
 - **Monitoring:** ![Grafana](https://img.shields.io/badge/-Grafana-F46800?logo=grafana&logoColor=white) ![Prometheus](https://img.shields.io/badge/-Prometheus-E6522C?logo=prometheus&logoColor=white)
