@@ -20,6 +20,7 @@
 - **Containerization and Orchestration:** ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?logo=kubernetes&logoColor=white)
 - **Version Control:** ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)
 - **Scripting Languages:** ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white) 
+- **AI Tools:** ![Claude Code](https://img.shields.io/badge/Claude%20Code-D97706?logo=anthropic&logoColor=white) ![Antigravity](https://img.shields.io/badge/Antigravity-4285F4?logo=google&logoColor=white)
 - **Code Editor:** ![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white)
 - **Collaboration Tool:** ![Jira](https://img.shields.io/badge/Jira-0052CC?logo=jira&logoColor=fff)
 - **Documentation:** ![Notion](https://img.shields.io/badge/Notion-000?logo=notion&logoColor=fff)
