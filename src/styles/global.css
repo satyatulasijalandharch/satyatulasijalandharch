@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode — .dark on <html> activates dark: variants */
+@variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
@@ -14,6 +17,7 @@
   --font-sans: var(--font-sans);
 }
 
+/* ── Light theme (default) ───────────────────────────────────────── */
 :root {
   --color-background: #FBFBFB;
   --color-surface: #F4F4F5;
@@ -26,6 +30,19 @@
   --color-status-available: #16A34A;
 }
 
+/* ── Dark theme — activated by .dark class on <html> ─────────────── */
+.dark {
+  --color-background: #0A0A0A;
+  --color-surface: #18181B;
+  --color-surface-subtle: #111111;
+  --color-border: #27272A;
+  --color-border-hairline: #27272A;
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
+  --color-status-available: #22C55E;
+}
+
 html {
   background-color: var(--color-background);
   color: var(--color-text-primary);
@@ -33,6 +50,11 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth colour transitions when toggling theme */
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Tabular figures for telemetry ledgers, dates, and metrics */
