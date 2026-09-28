@@ -1,0 +1,129 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Portrait from "@components/Portrait.astro";
+import AcademicRow from "@components/about/AcademicRow.astro";
+import SkillCard from "@components/about/SkillCard.astro";
+
+const skills = [
+    {
+        title: "Cloud Platforms",
+        description:
+            "AWS (EC2, ECS, Lambda, Route 53, CloudWatch, Bedrock), OCI, Cloudflare, Supabase, Vercel",
+    },
+    {
+        title: "Infrastructure as Code",
+        description:
+            "Terraform, AWS CDK, Docker, DevContainers, Reusable GitHub Action Workflows",
+    },
+    {
+        title: "CI/CD & GitOps",
+        description:
+            "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms",
+    },
+    {
+        title: "Governance & Tooling",
+        description:
+            "AWS Organizations, IAM Identity Center (SSO), Passbolt, Bitwarden, Claude Code, Jira",
+    },
+];
+
+const academicItems = [
+    {
+        title: "R L Jalappa Institute of Technology",
+        date: "2020 — 2024",
+        description:
+            "Bachelor of Engineering in Computer Science & Engineering • Bengaluru",
+    },
+    {
+        title: "Automated DevOps Pipeline For Deploying MERN Stack Web Application in Kubernetes on AWS",
+        date: "May 2024",
+        description: "Published Research Paper • IJRAR",
+    },
+];
+---
+
+<BaseLayout
+    title="About — Satya Tulasi Jalandhar C H"
+    description="Background, career timeline, operating principles, and engineering philosophy of Satya Tulasi Jalandhar C H."
+>
+    <div class="space-y-12 max-w-3xl mx-auto">
+        <header class="border-b border-border pb-8 space-y-4">
+            <div class="text-xs uppercase tracking-wider text-text-muted">
+                BACKGROUND &amp; PHILOSOPHY
+            </div>
+            <h1
+                class="text-2xl sm:text-4xl font-semibold tracking-tight text-text-primary"
+            >
+                Satya Tulasi Jalandhar C H
+            </h1>
+            <p class="text-base text-text-secondary leading-relaxed">
+                Cloud &amp; DevOps Engineer with 2+ years of hands-on experience
+                designing and operating multi-cloud infrastructure across AWS,
+                OCI, and modern web platforms.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
+            <div class="sm:col-span-1">
+                <Portrait class="w-full p-2" width={300} height={300} />
+            </div>
+
+            <div
+                class="sm:col-span-2 space-y-4 text-sm text-text-secondary leading-relaxed"
+            >
+                <h2 class="text-lg font-semibold text-text-primary">
+                    Engineering Philosophy
+                </h2>
+                <p>
+                    I approach cloud infrastructure with the principles of
+                    International Typographic Style: simplicity, structural
+                    clarity, zero unnecessary bloat, and total transparency.
+                </p>
+                <p>
+                    Rather than introducing heavyweight orchestration for modest
+                    workloads, I prioritize right-sizing, deterministic
+                    Infrastructure as Code (Terraform &amp; AWS CDK), and
+                    automated CI/CD safeguards that eliminate human error.
+                </p>
+            </div>
+        </div>
+
+        <section class="space-y-6 pt-6 border-t border-border">
+            <h2 class="text-xl font-semibold tracking-tight text-text-primary">
+                Core Technical Competencies
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                {
+                    skills.map((skill) => (
+                        <SkillCard title={skill.title}>
+                            {skill.description}
+                        </SkillCard>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="space-y-4 pt-6 border-t border-border text-sm">
+            <h2 class="text-xl font-semibold tracking-tight text-text-primary">
+                Academic Background &amp; Publications
+            </h2>
+            <div class="space-y-3">
+                {
+                    academicItems.map((item, index) => (
+                        <div
+                            class={
+                                index < academicItems.length - 1
+                                    ? "border-b border-border pb-3"
+                                    : ""
+                            }
+                        >
+                            <AcademicRow title={item.title} date={item.date}>
+                                {item.description}
+                            </AcademicRow>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+    </div>
+</BaseLayout>

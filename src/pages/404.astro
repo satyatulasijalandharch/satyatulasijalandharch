@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="404 — Route Not Found"
+    description="The requested resource does not exist or has been relocated."
+    noindex={true}
+>
+    <div
+        class="py-20 flex flex-col items-center justify-center text-center space-y-6"
+    >
+        <div class="text-xs uppercase tracking-widest text-text-muted">
+            ERROR
+        </div>
+
+        <h1
+            class="text-4xl sm:text-6xl font-semibold tracking-tight text-text-primary"
+        >
+            Route Not Found
+        </h1>
+
+        <p class="text-sm sm:text-base text-text-secondary max-w-md">
+            The requested resource does not exist, has been relocated, or is
+            temporarily unavailable.
+        </p>
+
+        <div class="pt-4">
+            <a
+                href="/"
+                class="inline-flex items-center gap-2 border border-border bg-surface-subtle px-4 py-2 text-xs font-medium text-text-primary hover:bg-surface hover:border-text-secondary transition-colors"
+            >
+                <span>&larr;</span>
+                <span>Return to Home</span>
+            </a>
+        </div>
+    </div>
+</BaseLayout>

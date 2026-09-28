@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    cert: CollectionEntry<"certs">;
+}
+
+const { cert } = Astro.props;
+---
+
+<div
+    class="grid grid-cols-1 sm:grid-cols-12 py-4 border-b border-border text-sm gap-2 sm:gap-0 items-start sm:items-baseline"
+>
+    <div class="sm:col-span-5">
+        <div class="font-medium text-text-primary text-sm sm:text-base">
+            {cert.data.name}
+        </div>
+        {
+            cert.data.skills && (
+                <div class="text-xs text-text-muted pt-1">
+                    {cert.data.skills.join(" · ")}
+                </div>
+            )
+        }
+    </div>
+    <span class="text-xs sm:text-sm text-text-secondary sm:col-span-3">
+        {cert.data.issuer}
+    </span>
+    <div class="flex items-center justify-between sm:contents">
+        <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
+            {cert.data.issueDate}
+        </span>
+        <div class="sm:col-span-2 sm:text-right">
+            <a
+                href={cert.data.credentialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-medium text-text-primary hover:underline inline-flex items-center gap-1"
+            >
+                <span>Verify</span>
+                <span aria-hidden="true" class="text-[10px]"> ↗ </span>
+            </a>
+        </div>
+    </div>
+</div>

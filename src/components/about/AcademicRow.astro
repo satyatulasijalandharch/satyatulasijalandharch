@@ -1,0 +1,22 @@
+---
+interface Props {
+    title: string;
+    date?: string;
+}
+
+const { title, date = "" } = Astro.props as Props;
+---
+
+<div class="space-y-1">
+    <div class="flex justify-between items-baseline">
+        <span class="font-medium text-text-primary">{title}</span>
+        {
+            date && (
+                <span class="text-xs text-text-muted tabular-nums">{date}</span>
+            )
+        }
+    </div>
+    <div class="text-xs text-text-secondary">
+        <slot />
+    </div>
+</div>

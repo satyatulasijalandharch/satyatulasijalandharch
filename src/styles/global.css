@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-subtle: var(--color-surface-subtle);
+  --color-border: var(--color-border);
+  --color-border-hairline: var(--color-border-hairline);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-status-available: var(--color-status-available);
+
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --color-background: #FBFBFB;
+  --color-surface: #F4F4F5;
+  --color-surface-subtle: #FAFAFA;
+  --color-border: #E4E4E7;
+  --color-border-hairline: #E4E4E7;
+  --color-text-primary: #111111;
+  --color-text-secondary: #52525B;
+  --color-text-muted: #71717A;
+  --color-status-available: #16A34A;
+}
+
+html {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular figures for telemetry ledgers, dates, and metrics */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

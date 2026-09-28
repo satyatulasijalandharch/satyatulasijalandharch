@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import CertCard from "@components/CertCard.astro";
+
+const certs = await getCollection("certs");
+---
+
+<BaseLayout
+    title="Verified Credentials & Certifications"
+    description="Verified cloud and infrastructure certifications awarded by Microsoft, Oracle, KodeKloud, and Atlassian."
+>
+    <div class="space-y-10">
+        <header class="border-b border-border pb-6 space-y-2">
+            <div class="text-xs uppercase tracking-wider text-text-muted">
+                CREDENTIALS LEDGER
+            </div>
+            <h1
+                class="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary"
+            >
+                Verified Certifications &amp; Accreditations
+            </h1>
+            <p
+                class="text-sm sm:text-base text-text-secondary max-w-2xl leading-relaxed"
+            >
+                Externally verifiable credentials across cloud platforms,
+                declarative infrastructure, and continuous delivery systems.
+            </p>
+        </header>
+
+        <div class="border-t border-border">
+            <div
+                class="hidden sm:grid sm:grid-cols-12 py-2 text-xs font-semibold uppercase tracking-wider text-text-muted border-b border-border tabular-nums"
+            >
+                <span class="sm:col-span-5">Credential</span>
+                <span class="sm:col-span-3">Issuer</span>
+                <span class="sm:col-span-2">Date</span>
+                <span class="sm:col-span-2 text-right">Verification</span>
+            </div>
+
+            {certs.map((cert) => <CertCard cert={cert} />)}
+        </div>
+    </div>
+</BaseLayout>

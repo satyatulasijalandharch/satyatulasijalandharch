@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import profileImage from "@assets/images/profile.png";
+
+interface Props {
+    class?: string;
+    imageClass?: string;
+    width?: number;
+    height?: number;
+}
+
+const {
+    class: className = "",
+    imageClass = "w-full h-auto aspect-square object-cover contrast-105",
+    width = 240,
+    height = 240,
+} = Astro.props;
+---
+
+<div
+    class={`border border-border p-1 bg-surface-subtle inline-block ${className}`}
+>
+    <Image
+        src={profileImage}
+        alt="Satya Tulasi Jalandhar C H"
+        width={width}
+        height={height}
+        class={imageClass}
+        loading="eager"
+    />
+</div>

@@ -1,0 +1,57 @@
+---
+import Container from "./Container.astro";
+
+const currentYear = 2026;
+
+const links = [
+    { label: "GitHub", href: "https://github.com/satyatulasijalandharch" },
+    {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/satyatulasijalandharch",
+    },
+    { label: "Email", href: "mailto:satyatulasijalandharch2@gmail.com" },
+    { label: "RSS", href: "/rss.xml" },
+];
+---
+
+<footer class="w-full border-t border-border bg-background mt-auto">
+    <Container class="py-6">
+        <div
+            class="flex flex-col gap-4 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between tabular-nums"
+        >
+            <ul class="flex items-center gap-5 list-none p-0 m-0 sm:order-2">
+                {
+                    links.map((link) => (
+                        <li>
+                            <a
+                                href={link.href}
+                                target={
+                                    link.href.startsWith("http")
+                                        ? "_blank"
+                                        : undefined
+                                }
+                                rel={
+                                    link.href.startsWith("http")
+                                        ? "noopener noreferrer"
+                                        : undefined
+                                }
+                                class="hover:text-text-primary transition-colors"
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+
+            <div class="flex items-center gap-2 sm:order-1">
+                <span class="text-text-primary font-medium"
+                    >Satya Tulasi Jalandhar C H</span
+                >
+                <span>&copy; {currentYear}</span>
+                <span class="text-neutral-400">&bull;</span>
+                <span>Bangalore, IN</span>
+            </div>
+        </div>
+    </Container>
+</footer>

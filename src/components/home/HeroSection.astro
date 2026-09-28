@@ -1,0 +1,59 @@
+---
+import Portrait from "@components/Portrait.astro";
+---
+
+<div class="space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <!-- Portrait Column: Hairline bordered 1:1 square crop -->
+        <div class="sm:col-span-4 lg:col-span-3 shrink-0">
+            <Portrait
+                class="max-w-40 sm:max-w-none"
+                imageClass="w-36 sm:w-full aspect-square object-cover contrast-105"
+            />
+        </div>
+
+        <!-- Identity & Value Proposition Column -->
+        <div class="sm:col-span-8 lg:col-span-9 space-y-4">
+            <div class="space-y-1.5">
+                <div
+                    class="flex items-center gap-2 text-xs tabular-nums text-text-muted"
+                >
+                    <span
+                        class="inline-block w-2 h-2 rounded-full bg-status-available"
+                    ></span>
+                    <span class="text-text-primary font-medium"
+                        >Available for Roles</span
+                    >
+                    <span>&bull;</span>
+                    <span>Bangalore, IN</span>
+                </div>
+
+                <h1
+                    class="text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-text-primary leading-[1.15]"
+                >
+                    Satya Tulasi Jalandhar C H
+                </h1>
+
+                <p class="text-sm sm:text-base font-medium text-text-secondary">
+                    Cloud &amp; DevOps Engineer
+                </p>
+            </div>
+
+            <p
+                class="text-base sm:text-lg text-text-primary font-normal tracking-tight leading-snug"
+            >
+                &ldquo;Architecting resilient cloud platforms, declarative IaC,
+                and reliable delivery pipelines.&rdquo;
+            </p>
+
+            <p
+                class="text-xs sm:text-sm md:text-base text-text-secondary max-w-2xl leading-relaxed"
+            >
+                Cloud &amp; DevOps Engineer with 2+ years of experience
+                designing and managing multi-cloud infrastructure across AWS,
+                OCI, and modern web platforms. Specialized in Terraform, AWS
+                CDK, Docker, CI/CD automation, and centralized cloud governance.
+            </p>
+        </div>
+    </div>
+</div>

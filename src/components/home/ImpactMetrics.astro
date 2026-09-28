@@ -1,0 +1,35 @@
+---
+import MetricItem from "./MetricItem.astro";
+
+const metrics = [
+    {
+        label: "01. PROVEN IMPACT",
+        value: "-40% Spend",
+        description: "Automated FinOps & Rightsizing",
+    },
+    {
+        label: "02. CORE TOOLKIT",
+        value: "AWS • IaC",
+        description: "Terraform · AWS CDK · Docker · CI/CD",
+    },
+    {
+        label: "03. RELIABILITY",
+        value: "99.9% Uptime",
+        description: "Automated Health Checks & Rollbacks",
+    },
+];
+---
+
+<div
+    class="pt-6 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 divide-y sm:divide-y-0 divide-border"
+>
+    {
+        metrics.map((item) => (
+            <MetricItem
+                label={item.label}
+                value={item.value}
+                description={item.description}
+            />
+        ))
+    }
+</div>

@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from "astro:content";
+import CertCard from "@components/CertCard.astro";
+
+interface Props {
+    certs: CollectionEntry<"certs">[];
+}
+
+const { certs } = Astro.props;
+---
+
+<section class="space-y-6">
+    <div class="flex items-center justify-between border-b border-border pb-3">
+        <div class="text-xs uppercase tracking-wider text-text-muted">
+            VERIFIED CREDENTIALS
+        </div>
+        <a
+            href="/certs"
+            class="text-xs font-medium text-text-primary hover:underline"
+        >
+            View All &rarr;
+        </a>
+    </div>
+
+    <div class="border-t border-border">
+        {certs.map((cert) => <CertCard cert={cert} />)}
+    </div>
+</section>

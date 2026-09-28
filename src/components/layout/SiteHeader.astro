@@ -1,0 +1,53 @@
+---
+import Container from "./Container.astro";
+import ResumeButton from "@components/ResumeButton.astro";
+
+const pathname = new URL(Astro.request.url).pathname;
+
+const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Work", href: "/work" },
+    { label: "Blog", href: "/blog" },
+    { label: "Certs", href: "/certs" },
+    { label: "About", href: "/about" },
+];
+
+const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+};
+---
+
+<header
+    class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md transition-colors"
+>
+    <Container class="py-2.5 sm:py-4">
+        <nav
+            class="flex items-center justify-between text-[13px] sm:text-sm w-full"
+            aria-label="Main Navigation"
+        >
+            <div
+                class="flex items-center gap-4 sm:gap-8 overflow-x-auto no-scrollbar py-0.5"
+            >
+                {
+                    navItems.map((item) => (
+                        <a
+                            href={item.href}
+                            class={`py-1 transition-colors tracking-tight whitespace-nowrap ${
+                                isActive(item.href)
+                                    ? "text-text-primary font-medium underline underline-offset-4 decoration-border"
+                                    : "text-text-secondary hover:text-text-primary"
+                            }`}
+                        >
+                            {item.label}
+                        </a>
+                    ))
+                }
+            </div>
+
+            <div class="shrink-0 pl-3">
+                <ResumeButton variant="pill" />
+            </div>
+        </nav>
+    </Container>
+</header>

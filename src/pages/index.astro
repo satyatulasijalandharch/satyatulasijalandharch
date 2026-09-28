@@ -1,17 +1,44 @@
 ---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import HeroSection from "@components/home/HeroSection.astro";
+import ImpactMetrics from "@components/home/ImpactMetrics.astro";
+import FeaturedWork from "@components/home/FeaturedWork.astro";
+import ExperienceSection from "@components/home/ExperienceSection.astro";
+import RecentPosts from "@components/home/RecentPosts.astro";
+import CertsSummary from "@components/home/CertsSummary.astro";
 
+const featuredWorks = (
+	await getCollection("work", ({ data }) => data.featured)
+).sort((a, b) => a.data.order - b.data.order);
+
+const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+const certs = (await getCollection("certs")).slice(0, 2);
+
+const experience = (await getCollection("experience")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/profile.png" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+	title="Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer"
+	description="Specialized in AWS platforms, declarative IaC with Terraform & AWS CDK, Docker containerization, and zero-downtime CI/CD automation."
+>
+	<div class="space-y-12 sm:space-y-20">
+		<section class="border-b border-border pb-10 sm:pb-16 space-y-6">
+			<HeroSection />
+			<ImpactMetrics />
+		</section>
+
+		<FeaturedWork works={featuredWorks} />
+
+		<ExperienceSection experience={experience} />
+
+		<RecentPosts posts={recentPosts} />
+
+		<CertsSummary certs={certs} />
+	</div>
+</BaseLayout>

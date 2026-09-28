@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    posts: CollectionEntry<"blog">[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="space-y-6">
+    <div class="flex items-center justify-between border-b border-border pb-3">
+        <div class="text-xs uppercase tracking-wider text-text-muted">
+            RECENT WRITING
+        </div>
+        <a
+            href="/blog"
+            class="text-xs font-medium text-text-primary hover:underline"
+        >
+            All Articles &rarr;
+        </a>
+    </div>
+
+    <div class="border-t border-border">
+        {
+            posts.map((post) => {
+                const dateStr = new Intl.DateTimeFormat("en-US", {
+                    year: "numeric",
+                    month: "short",
+                }).format(post.data.pubDate);
+
+                return (
+                    <article class="grid grid-cols-1 sm:grid-cols-12 py-4 border-b border-border text-sm gap-2 sm:gap-0 items-baseline">
+                        <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
+                            {dateStr}
+                        </span>
+                        <a
+                            href={`/blog/${post.id}`}
+                            class="sm:col-span-6 font-medium text-text-primary hover:underline"
+                        >
+                            {post.data.title}
+                        </a>
+                        <span class="text-xs text-text-secondary sm:col-span-2">
+                            {post.data.topic}
+                        </span>
+                        <span class="text-xs text-text-muted sm:col-span-2 sm:text-right tabular-nums">
+                            {post.data.readTime} &rarr;
+                        </span>
+                    </article>
+                );
+            })
+        }
+    </div>
+</section>

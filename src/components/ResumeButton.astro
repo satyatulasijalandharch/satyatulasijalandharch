@@ -1,0 +1,43 @@
+---
+interface Props {
+    href?: string;
+    label?: string;
+    variant?: "pill" | "link";
+    class?: string;
+}
+
+const {
+    href = "/resume.pdf",
+    label = "Resume",
+    variant = "pill",
+    class: className = "",
+} = Astro.props;
+---
+
+{
+    variant === "pill" ? (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`border border-border bg-surface-subtle/80 hover:bg-surface hover:border-text-secondary text-text-primary transition-colors inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium whitespace-nowrap ${className}`}
+        >
+            <span>{label}</span>
+            <span aria-hidden="true" class="text-[10px] sm:text-xs">
+                ↗
+            </span>
+        </a>
+    ) : (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`text-xs font-medium text-text-primary hover:underline inline-flex items-center gap-1 whitespace-nowrap ${className}`}
+        >
+            <span>{label}</span>
+            <span aria-hidden="true" class="text-[10px] sm:text-xs">
+                ↗
+            </span>
+        </a>
+    )
+}

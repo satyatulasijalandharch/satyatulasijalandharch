@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+    title="Blog & Engineering Notes"
+    description="Technical notes and architecture postmortems on cloud cost optimization, serverless patterns, and container infrastructure."
+>
+    <div class="space-y-10">
+        <header class="border-b border-border pb-6 space-y-2">
+            <div class="text-xs uppercase tracking-wider text-text-muted">
+                WRITING &amp; ANALYSIS
+            </div>
+            <h1
+                class="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary"
+            >
+                Engineering Notes &amp; Technical Articles
+            </h1>
+            <p
+                class="text-sm sm:text-base text-text-secondary max-w-2xl leading-relaxed"
+            >
+                Reflections, architectural decisions, and operational lessons
+                learned while running production workloads.
+            </p>
+        </header>
+
+        <div class="border-t border-border">
+            <div
+                class="hidden sm:grid sm:grid-cols-12 py-2 text-xs font-semibold uppercase tracking-wider text-text-muted border-b border-border tabular-nums"
+            >
+                <span class="sm:col-span-2">Date</span>
+                <span class="sm:col-span-6">Title</span>
+                <span class="sm:col-span-2">Topic</span>
+                <span class="sm:col-span-2 text-right">Read Time</span>
+            </div>
+
+            {
+                posts.length === 0 ? (
+                    <div class="py-8 text-center text-text-muted text-sm border-b border-border">
+                        No articles published yet.
+                    </div>
+                ) : (
+                    posts.map((post) => {
+                        const dateStr = new Intl.DateTimeFormat("en-US", {
+                            year: "numeric",
+                            month: "short",
+                        }).format(post.data.pubDate);
+
+                        return (
+                            <article class="grid grid-cols-1 sm:grid-cols-12 py-4 border-b border-border text-sm gap-2 sm:gap-0 items-baseline">
+                                <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
+                                    {dateStr}
+                                </span>
+                                <a
+                                    href={`/blog/${post.id}`}
+                                    class="sm:col-span-6 font-medium text-text-primary hover:underline"
+                                >
+                                    {post.data.title}
+                                </a>
+                                <span class="text-xs text-text-secondary sm:col-span-2">
+                                    {post.data.topic}
+                                </span>
+                                <span class="text-xs text-text-muted sm:col-span-2 sm:text-right tabular-nums">
+                                    {post.data.readTime} &rarr;
+                                </span>
+                            </article>
+                        );
+                    })
+                )
+            }
+        </div>
+    </div>
+</BaseLayout>

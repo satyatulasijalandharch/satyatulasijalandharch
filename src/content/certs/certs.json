@@ -1,0 +1,58 @@
+[
+    {
+        "id": "github-foundations",
+        "name": "GitHub Foundations",
+        "issuer": "Microsoft",
+        "issueDate": "Oct 2025",
+        "validUntil": "2028",
+        "credentialUrl": "https://learn.microsoft.com/api/credentials/share/en-gb/SatyaTulasiJalandharCH-4390/591FE247C2A248BF?sharingId",
+        "skills": [
+            "Git",
+            "GitHub Actions",
+            "Security",
+            "GitHub Enterprise"
+        ]
+    },
+    {
+        "id": "oci-foundations-associate",
+        "name": "Oracle Cloud Infrastructure 2025 Certified Foundations Associate",
+        "issuer": "Oracle",
+        "issueDate": "Feb 2026",
+        "validUntil": "2028",
+        "credentialUrl": "https://catalog-education.oracle.com/pls/certview/sharebadge?id=E85D5C454B96915A8013D10293812650C441266D837398FCB2262DC7FD16D1D3",
+        "skills": [
+            "OCI Architecture",
+            "Compute & Networking",
+            "Identity & Access",
+            "Cloud Security"
+        ]
+    },
+    {
+        "id": "terraform-basics",
+        "name": "Terraform Basics Training Course",
+        "issuer": "KodeKloud",
+        "issueDate": "Oct 2025",
+        "validUntil": "Lifetime",
+        "credentialUrl": "https://learn.kodekloud.com/certificate/f3b2fc38-3c97-4d2f-bdac-8a2a44d69d4b",
+        "skills": [
+            "HCL",
+            "Terraform State",
+            "Providers & Modules",
+            "IaC Provisioning"
+        ]
+    },
+    {
+        "id": "atlassian-devops-essentials",
+        "name": "Atlassian DevOps Essentials",
+        "issuer": "Atlassian",
+        "issueDate": "Nov 2024",
+        "validUntil": "Lifetime",
+        "credentialUrl": "https://www.linkedin.com/in/satyatulasijalandharch",
+        "skills": [
+            "DevOps Culture",
+            "Jira Software",
+            "Agile Sprints",
+            "Continuous Delivery"
+        ]
+    }
+]
