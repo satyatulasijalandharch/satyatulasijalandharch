@@ -9,16 +9,22 @@ import mdx from '@astrojs/mdx';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), sitemap(), mdx()],
   site: "https://stjch.in",
+
   vite: {
     plugins: [tailwindcss()]
   },
+
   fonts: [{
     provider: fontProviders.fontsource(),
     name: "Inter",
     cssVariable: "--font-sans"
-  }]
+  }],
+
+  adapter: cloudflare()
 });
