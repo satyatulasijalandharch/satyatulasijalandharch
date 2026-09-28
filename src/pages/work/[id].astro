@@ -1,9 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection, getEntry, render } from "astro:content";
-import Callout from "@components/mdx/Callout.astro";
-import MetricStat from "@components/mdx/MetricStat.astro";
-import ArchitectureFigure from "@components/mdx/ArchitectureFigure.astro";
 
 export async function getStaticPaths() {
     const entries = await getCollection("work");
@@ -63,7 +60,7 @@ const { Content } = await render(entry);
         <div
             class="prose prose-neutral dark:prose-invert max-w-none text-text-secondary leading-relaxed space-y-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-text-primary [&_h2]:pt-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1"
         >
-            <Content components={{ Callout, MetricStat, ArchitectureFigure }} />
+            <Content />
         </div>
 
         <footer

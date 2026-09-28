@@ -6,16 +6,12 @@ topic: "FinOps"
 readTime: "4 min"
 draft: false
 ---
-import Callout from "@components/mdx/Callout.astro";
-import MetricStat from "@components/mdx/MetricStat.astro";
 
 Many engineering teams rush into 1-year or 3-year Compute Savings Plans the moment their AWS monthly invoice starts to rise. While reservations offer guaranteed discounts, committing before auditing workload utilization often means paying for over-provisioned headroom you will never use.
 
-<MetricStat
-  label="Typical Allocation Waste"
-  value="35% — 60%"
-  detail="Observed in development, staging, and unmonitored container tasks."
-/>
+### Typical allocation waste: 35% — 60%
+
+Observed in development, staging, and unmonitored container tasks.
 
 ## The Rightsizing First Principle
 
@@ -25,6 +21,6 @@ Before signing financial commitments:
 2. **Standardize Task Definitions in IaC**: Use Terraform or CDK variables to tune task sizes across environments—staging workloads rarely require production memory allocations.
 3. **Automate Idle Windows**: Enforce scheduled shutdowns outside business hours before calculating commitment tiers.
 
-<Callout type="note" title="KEY TAKEAWAY">
-Clean up waste through right-sizing and scheduled shutdowns first; then commit to Savings Plans on the stable, reduced baseline for compounded savings.
-</Callout>
+> **KEY TAKEAWAY**
+>
+> Clean up waste through right-sizing and scheduled shutdowns first; then commit to Savings Plans on the stable, reduced baseline for compounded savings.

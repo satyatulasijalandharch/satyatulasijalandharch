@@ -15,8 +15,6 @@ stack:
 featured: true
 order: 1
 ---
-import Callout from "@components/mdx/Callout.astro";
-import MetricStat from "@components/mdx/MetricStat.astro";
 
 ## Executive Summary
 
@@ -24,18 +22,12 @@ Rapid feature iteration across distributed staging environments caused noticeabl
 
 To eliminate waste without hurting developer velocity, I architected an event-driven FinOps automation engine that enforces scheduled resource lifecycle management, rightsizes compute tasks, and introduces proactive cost anomaly alerts.
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <MetricStat
-    label="Direct Monthly Reduction"
-    value="-40%"
-    detail="Achieved across staging and dev environments within 60 days."
-  />
-  <MetricStat
-    label="Provisioning Error Rate"
-    value="-50%"
-    detail="Standardized Terraform & CDK modules eliminated drift."
-  />
-</div>
+### Impact at a glance
+
+| Metric | Result | Detail |
+| --- | --- | --- |
+| Direct Monthly Reduction | -40% | Achieved across staging and dev environments within 60 days. |
+| Provisioning Error Rate | -50% | Standardized Terraform & CDK modules eliminated drift. |
 
 ## Architectural Strategy
 
@@ -45,9 +37,9 @@ The FinOps architecture combines declarative infrastructure as code with serverl
 2. **Scheduled Teardown via Serverless Cron**: AWS EventBridge rules trigger Python Lambda handlers to gracefully spin down non-critical services outside active sprint hours.
 3. **Auto-Scaling Rightsizing**: Dynamic scaling thresholds replace static instance sizing, adapting task capacities based on actual memory and CPU telemetry gathered through Amazon CloudWatch.
 
-<Callout type="note" title="KEY OPERATING PRINCIPLE">
-Automation must never surprise developers. All shutdown events dispatch Slack notifications 15 minutes before execution, providing single-click webhook overrides when developers require extended test sessions.
-</Callout>
+> **KEY OPERATING PRINCIPLE**
+>
+> Automation must never surprise developers. All shutdown events dispatch Slack notifications 15 minutes before execution, providing single-click webhook overrides when developers require extended test sessions.
 
 ## Declarative Standardization with Terraform & CDK
 

@@ -5,7 +5,7 @@ import { glob, file } from "astro/loaders";
 const work = defineCollection({
   loader: glob({
     base: "./src/content/work",
-    pattern: ["*.md", "*.mdx", "**/*.md", "**/*.mdx"],
+    pattern: ["*.md", "**/*.md"],
   }),
   schema: ({ image }) =>
     z.object({
@@ -25,7 +25,7 @@ const work = defineCollection({
 const blog = defineCollection({
   loader: glob({
     base: "./src/content/blog",
-    pattern: ["*.md", "*.mdx", "**/*.md", "**/*.mdx"],
+    pattern: ["*.md", "**/*.md"],
   }),
   schema: ({ image }) =>
     z.object({
@@ -48,7 +48,7 @@ const certs = defineCollection({
     issuer: z.string(),
     issueDate: z.string(),
     validUntil: z.string().optional(),
-    credentialUrl: z.string().url(),
+    credentialUrl: z.url(),
     skills: z.array(z.string()).optional(),
   }),
 });

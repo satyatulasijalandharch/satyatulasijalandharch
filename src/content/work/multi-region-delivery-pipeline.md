@@ -14,25 +14,17 @@ stack:
 featured: true
 order: 2
 ---
-import Callout from "@components/mdx/Callout.astro";
-import MetricStat from "@components/mdx/MetricStat.astro";
 
 ## Background & Challenge
 
 Legacy deployments relied on manual SSH sequences, manual package builds on origin servers, and uncontrolled DNS configuration changes across disparate domain registrars. These manual steps resulted in deployment delays and occasional runtime disruptions during release windows.
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <MetricStat
-    label="Release Velocity"
-    value="+40%"
-    detail="Automated end-to-end testing, image building, and container restart."
-  />
-  <MetricStat
-    label="Deployment Uptime"
-    value="99.9%"
-    detail="Centralized health checks, blue-green staging, and instant rollbacks."
-  />
-</div>
+### Impact at a glance
+
+| Metric | Result | Detail |
+| --- | --- | --- |
+| Release Velocity | +40% | Automated end-to-end testing, image building, and container restart. |
+| Deployment Uptime | 99.9% | Centralized health checks, blue-green staging, and instant rollbacks. |
 
 ## The Solution: Centralized Governance & Reusable Pipelines
 
@@ -42,6 +34,6 @@ To solve this, I designed a multi-environment delivery system:
 - **Containerized Parity with Docker**: Uniform application containers eliminating environment-specific variance between local dev containers, staging, and production hosts.
 - **DNS & CDN Modernization**: Migrated legacy domains from GoDaddy/Hostinger to AWS Route 53 and Cloudflare, implementing automated SSL/TLS termination and edge DDoS protection.
 
-<Callout type="info" title="PRODUCTION SAFEGUARD">
-Every deployment executes pre-flight vulnerability audits (container security) and automated health checks against Canary endpoints before shifting DNS routing.
-</Callout>
+> **PRODUCTION SAFEGUARD**
+>
+> Every deployment executes pre-flight vulnerability audits (container security) and automated health checks against Canary endpoints before shifting DNS routing.

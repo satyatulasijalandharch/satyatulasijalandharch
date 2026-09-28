@@ -6,7 +6,6 @@ topic: "Architecture"
 readTime: "6 min"
 draft: false
 ---
-import Callout from "@components/mdx/Callout.astro";
 
 Architecting resilient distributed applications requires moving away from brittle, tightly coupled request-response chains. Event-driven architectures replace synchronous HTTP polling with asynchronous pub/sub boundaries.
 
@@ -16,6 +15,6 @@ Architecting resilient distributed applications requires moving away from brittl
 - **Declarative Bus Rules**: AWS EventBridge patterns route events directly to specific Lambda handlers based on strict metadata schemas.
 - **Idempotency by Design**: Using DynamoDB condition expressions or transaction writes guarantees that duplicated event deliveries cause no state corruption.
 
-<Callout type="info" title="OBSERVABILITY REQUIREMENT">
-Always inject correlation IDs at the ingestion boundary and propagate them across event payloads to ensure end-to-end tracing in CloudWatch.
-</Callout>
+> **OBSERVABILITY REQUIREMENT**
+>
+> Always inject correlation IDs at the ingestion boundary and propagate them across event payloads to ensure end-to-end tracing in CloudWatch.
