@@ -8,6 +8,9 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   trailingSlash: 'never',
+  redirects: {
+    '/sitemap.xml': '/sitemap-index.xml',
+  },
   integrations: [react(), sitemap()],
   site: "https://stjch.in",
   session: false,
