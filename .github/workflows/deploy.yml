@@ -43,7 +43,7 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  command: preview --name pr-${{ github.event.pull_request.number }}
+                  command: 'preview --name pr-${{ github.event.pull_request.number }} --message "${{ github.event.head_commit.message || github.event.pull_request.title || github.event.pull_request.body }}"'
 
             - name: Comment Preview Details on PR
               if: github.event_name == 'pull_request' && (success() || failure())
@@ -86,4 +86,4 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  command: 'deploy --message "Production: ${{ github.sha }}"'
+                  command: 'deploy --message "${{ github.event.head_commit.message }}"'
