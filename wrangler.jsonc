@@ -36,12 +36,11 @@
 	],
 	"env": {
 		"preview": {
-			"routes": [
-				{
-					"pattern": "preview.stjch.in",
-					"custom_domain": true
-				}
-			]
+			"name": "satyatulasijalandharch-preview",
+			"route": {
+				"pattern": "preview.stjch.in",
+				"custom_domain": true
+			}
 		}
 	}
 }
