@@ -10,13 +10,14 @@ export const GET: APIRoute = async (context) => {
         description:
             "Technical notes and architecture postmortems on cloud cost optimization, serverless patterns, and container infrastructure.",
         site: context.site ?? context.url,
+        trailingSlash: false,
         items: posts
             .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
             .map((post) => ({
                 title: post.data.title,
                 pubDate: post.data.pubDate,
                 description: post.data.description,
-                link: `/blog/${post.id}/`,
+                link: `/blog/${post.id}`,
             })),
         customData: "<language>en-us</language>",
     });

@@ -12,6 +12,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
+  trailingSlash: 'never',
   integrations: [react(), sitemap()],
   site: "https://stjch.in",
   session: false,
