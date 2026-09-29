@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import ThemeProvider from "@components/ThemeProvider.astro";
 import SiteHeader from "@components/layout/SiteHeader.astro";
 import SiteFooter from "@components/layout/SiteFooter.astro";
 import Container from "@components/layout/Container.astro";
@@ -66,17 +67,7 @@ const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        <!-- Anti-flash theme script: runs before first paint to avoid FOUC -->
-        <script is:inline>
-            (function () {
-                const stored = localStorage.getItem("theme");
-                const prefersDark = window.matchMedia(
-                    "(prefers-color-scheme: dark)",
-                ).matches;
-                const isDark = stored === "dark" || (!stored && prefersDark);
-                document.documentElement.classList.toggle("dark", isDark);
-            })();
-        </script>
+        <ThemeProvider />
 
         <!-- Open Graph / Meta -->
         <meta property="og:type" content="website" />
@@ -101,16 +92,5 @@ const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
             </main>
         </Container>
         <SiteFooter />
-
-        <!-- Theme toggle handler -->
-        <script is:inline>
-            document
-                .getElementById("theme-toggle")
-                ?.addEventListener("click", function () {
-                    const html = document.documentElement;
-                    const isDark = html.classList.toggle("dark");
-                    localStorage.setItem("theme", isDark ? "dark" : "light");
-                });
-        </script>
     </body>
 </html>

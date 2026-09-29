@@ -14,6 +14,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   integrations: [react(), sitemap()],
   site: "https://stjch.in",
+  session: false,
 
   vite: {
     plugins: [tailwindcss()]
