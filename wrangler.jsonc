@@ -27,20 +27,12 @@
 	"routes": [
 		{
 			"pattern": "stjch.in",
-			"custom_domain": true
+			"custom_domain": true,
+			"previews_enabled": true
 		},
 		{
 			"pattern": "www.stjch.in",
 			"custom_domain": true
 		}
-	],
-	"env": {
-		"preview": {
-			"name": "satyatulasijalandharch-preview",
-			"route": {
-				"pattern": "preview.stjch.in",
-				"custom_domain": true
-			}
-		}
-	}
+	]
 }
