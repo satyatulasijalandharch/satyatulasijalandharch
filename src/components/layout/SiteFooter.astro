@@ -3,54 +3,149 @@ import Container from "./Container.astro";
 
 const currentYear = 2026;
 
-const links = [
-    { label: "GitHub", href: "https://github.com/satyatulasijalandharch" },
+const contactInfo = {
+    name: "Satya Tulasi Jalandhar C H",
+    role: "Cloud Engineer",
+    location: "Karnataka, IN",
+    email: "satyatulasijalandharch2@gmail.com",
+    phone: "+91 9110458836",
+    linkedinUsername: "satyatulasijalandharch",
+    githubUsername: "satyatulasijalandharch",
+};
+
+const phoneTel = `tel:${contactInfo.phone.replace(/\s+/g, "")}`;
+
+const socials = [
     {
         label: "LinkedIn",
-        href: "https://www.linkedin.com/in/satyatulasijalandharch",
+        username: contactInfo.linkedinUsername,
+        href: `https://www.linkedin.com/in/${contactInfo.linkedinUsername}`,
     },
-    { label: "Email", href: "mailto:satyatulasijalandharch2@gmail.com" },
-    { label: "RSS", href: "/rss.xml" },
+    {
+        label: "GitHub",
+        username: contactInfo.githubUsername,
+        href: `https://github.com/${contactInfo.githubUsername}`,
+    },
 ];
 ---
 
-<footer class="w-full border-t border-border bg-background mt-auto">
-    <Container class="py-6">
-        <div
-            class="flex flex-col gap-4 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between tabular-nums"
-        >
-            <ul class="flex items-center gap-5 list-none p-0 m-0 sm:order-2">
+<footer
+    class="w-full border-t border-border bg-background mt-auto text-xs text-text-muted tabular-nums"
+>
+    <Container class="py-8 flex flex-col gap-6">
+        <!-- Desktop Details (sm and above) -->
+        <div class="hidden sm:flex sm:flex-col sm:gap-1.5">
+            <p class="m-0">
+                <span class="text-text-primary font-medium"
+                    >{contactInfo.name}</span
+                >
+                <span class="mx-1 text-text-muted">·</span>
+                <span>{contactInfo.location}</span>
+            </p>
+            <p class="m-0">
+                <a
+                    href={`mailto:${contactInfo.email}`}
+                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline"
+                >
+                    {contactInfo.email}
+                </a>
+                <span class="mx-1 text-text-muted">·</span>
+                <a
+                    href={phoneTel}
+                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline"
+                >
+                    {contactInfo.phone}
+                </a>
+            </p>
+        </div>
+
+        <!-- Mobile Details & Socials (below sm) -->
+        <div class="flex flex-col gap-4 sm:hidden">
+            <!-- Block 1: Contact Details -->
+            <div class="flex flex-col gap-1">
+                <p class="m-0 text-text-primary font-medium">
+                    {contactInfo.name}
+                </p>
+                <p class="m-0">{contactInfo.role} · {contactInfo.location}</p>
+                <a
+                    href={`mailto:${contactInfo.email}`}
+                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline break-all"
+                >
+                    {contactInfo.email}
+                </a>
+                <a
+                    href={phoneTel}
+                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline"
+                >
+                    {contactInfo.phone}
+                </a>
+            </div>
+
+            <hr class="border-border/60 my-1" />
+
+            <!-- Block 2: Social Links -->
+            <div class="flex flex-col gap-2">
                 {
-                    links.map((link) => (
-                        <li>
-                            <a
-                                href={link.href}
-                                target={
-                                    link.href.startsWith("http")
-                                        ? "_blank"
-                                        : undefined
-                                }
-                                rel={
-                                    link.href.startsWith("http")
-                                        ? "noopener noreferrer"
-                                        : undefined
-                                }
-                                class="hover:text-text-primary transition-colors"
-                            >
-                                {link.label}
-                            </a>
-                        </li>
+                    socials.map((social) => (
+                        <a
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-text-primary transition-colors flex items-center justify-between"
+                        >
+                            <span>
+                                {social.label}: {social.username}
+                            </span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
                     ))
                 }
-            </ul>
+            </div>
 
-            <div class="flex items-center gap-2 sm:order-1">
-                <span class="text-text-primary font-medium"
-                    >Satya Tulasi Jalandhar C H</span
+            <hr class="border-border/60 my-1" />
+        </div>
+
+        <!-- Unified Bottom Section: Copyright & Actions -->
+        <div
+            class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:pt-2"
+        >
+            <p class="m-0">
+                &copy; {currentYear}
+                <span class="mx-1 text-text-muted">·</span> All rights reserved.
+            </p>
+
+            <!-- Desktop Links (sm and above) -->
+            <div
+                class="hidden sm:flex sm:items-center sm:gap-4 list-none p-0 m-0"
+            >
+                {
+                    socials.map((social) => (
+                        <a
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-text-primary transition-colors"
+                        >
+                            {social.label} <span aria-hidden="true">↗</span>
+                        </a>
+                    ))
+                }
+                <a
+                    href="#top"
+                    class="hover:text-text-primary transition-colors"
                 >
-                <span>&copy; {currentYear}</span>
-                <span class="text-text-muted">&bull;</span>
-                <span>Bangalore, IN</span>
+                    Top <span aria-hidden="true">↑</span>
+                </a>
+            </div>
+
+            <!-- Mobile Back to Top Button (below sm) -->
+            <div class="sm:hidden">
+                <a
+                    href="#top"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-border hover:border-text-muted/50 hover:text-text-primary transition-colors"
+                >
+                    Back to Top <span aria-hidden="true">↑</span>
+                </a>
             </div>
         </div>
     </Container>
