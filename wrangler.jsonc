@@ -23,5 +23,25 @@
 	},
 	"send_metrics": false,
 	"workers_dev": false,
-	"preview_urls": false
+	"preview_urls": false,
+	"routes": [
+		{
+			"pattern": "stjch.in",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.stjch.in",
+			"custom_domain": true
+		}
+	],
+	"env": {
+		"preview": {
+			"routes": [
+				{
+					"pattern": "preview.stjch.in",
+					"custom_domain": true
+				}
+			]
+		}
+	}
 }
