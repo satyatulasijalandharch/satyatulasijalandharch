@@ -4,24 +4,36 @@ This document outlines the Astro Content Layer architecture in `src/content.conf
 
 ## Architecture & Loaders
 
-Astro 7 uses the Content Layer API. Collections are configured in `src/content.config.ts` using two primary loaders:
+Astro 7 uses the Content Layer API. Collections are configured in `src/content.config.ts` with `glob()` for each entry file. Astro's `file()` loader remains useful for single-file data, but this project no longer uses it for its collections.
 
-1. `glob()`: Automatically discovers and parses Markdown files from subdirectories.
-2. `file()`: Reads and validates structured records from individual JSON files.
+`glob()` discovers Markdown and JSON entries. Each certification and experience record lives in its own JSON file.
 
 ```
 src/content/
 ├── blog/             # glob() -> Markdown articles
 │   ├── designing-event-driven-cloud-systems.md
 │   └── why-task-rightsizing-beats-savings-plans.md
-├── certs/            # file() -> certs.json
-│   └── certs.json
-├── experience/       # file() -> experience.json
-│   └── experience.json
+├── certs/            # glob() -> one JSON file per certification
+│   ├── github-foundations.json
+│   ├── oci-foundations-associate.json
+│   ├── terraform-basics.json
+│   └── atlassian-devops-essentials.json
+├── experience/       # glob() -> one JSON file per role
+│   ├── marumitra-cloud-engineer.json
+│   ├── codecafe-devops-engineer.json
+│   └── tezhire-devops-engineer.json
 └── work/             # glob() -> Markdown case studies
     ├── finops-optimization-engine.md
     └── multi-region-delivery-pipeline.md
 ```
+
+## Local Authoring with Keystatic
+
+Keystatic manages all four collections through the local Admin UI. Run `npm run dev`, then open `http://localhost:4321/keystatic`. The development config registers Keystatic only for the dev command. Astro runs on Node.js locally, which Keystatic needs for filesystem storage. Production builds do not register the Admin route.
+
+Blog and work entries stay as `.md` files with frontmatter and Markdown bodies. Certification and experience entries are individual JSON files. Their filename and `id` field must match. Certificate `order` controls homepage display order; experience uses its existing `order` field.
+
+Keystatic saves content directly into the repository. Review and commit those content changes as usual; the existing deployment workflow publishes committed content. Cover images uploaded in the Admin UI go under `src/assets/images/content`.
 
 ---
 
@@ -45,7 +57,7 @@ z.object({
   stack: z.array(z.string()),
   featured: z.boolean().default(false),
   order: z.number().default(0),
-  cover: image().optional(),
+  cover: image().nullish(),
 });
 ```
 
@@ -69,11 +81,11 @@ z.object({
   title: z.string(),
   description: z.string(),
   pubDate: z.coerce.date(),
-  updatedDate: z.coerce.date().optional(),
+  updatedDate: z.coerce.date().nullish(),
   topic: z.string(),
   readTime: z.string().default("5 min"),
   draft: z.boolean().default(false),
-  cover: image().optional(),
+  cover: image().nullish(),
 });
 ```
 
@@ -89,7 +101,7 @@ z.object({
 
 Industry credentials and professional certifications.
 
-- **Loader**: `file("src/content/certs/certs.json")`
+- **Loader**: `glob({ base: "./src/content/certs", pattern: "*.json" })`
 - **Schema**:
 
 ```typescript
@@ -98,9 +110,10 @@ z.object({
   name: z.string(),
   issuer: z.string(),
   issueDate: z.string(),
-  validUntil: z.string().optional(),
+  validUntil: z.string().nullish(),
   credentialUrl: z.string().url(),
   skills: z.array(z.string()).optional(),
+  order: z.number().default(0),
 });
 ```
 
@@ -108,6 +121,7 @@ z.object({
 
 - `credentialUrl`: Validated as a fully qualified URL for external credential verification.
 - `skills`: Associated tags displayed as badges alongside the credential.
+- `order`: Explicit order for the homepage summary.
 
 ---
 
@@ -115,7 +129,7 @@ z.object({
 
 Chronological career history and professional experience.
 
-- **Loader**: `file("src/content/experience/experience.json")`
+- **Loader**: `glob({ base: "./src/content/experience", pattern: "*.json" })`
 - **Schema**:
 
 ```typescript
@@ -124,7 +138,7 @@ z.object({
   period: z.string(),
   role: z.string(),
   company: z.string(),
-  location: z.string().optional(),
+  location: z.string().nullish(),
   focus: z.string(),
   stack: z.array(z.string()),
   highlights: z.array(z.string()).optional(),

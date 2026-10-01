@@ -1,0 +1,24 @@
+{
+  "id": "tezhire-devops-engineer",
+  "period": "2024 — 2025",
+  "role": "DevOps Engineer",
+  "company": "TezHire",
+  "location": "Jaipur, Rajasthan, India",
+  "focus": "Architected AWS CDK & Terraform IaC, built CI/CD pipelines (velocity +40%), integrated Bedrock AI APIs, and achieved 30% AWS cost reduction via rightsizing.",
+  "stack": [
+    "AWS CDK",
+    "Terraform",
+    "Lambda",
+    "DynamoDB",
+    "Docker",
+    "GitHub Actions"
+  ],
+  "highlights": [
+    "Architected and deployed cloud infrastructure using AWS CDK and Terraform for dev, staging, and prod environments (-50% provisioning errors).",
+    "Managed multiple hosted zones in AWS Route 53 with AWS CDK across environments.",
+    "Automated CI/CD pipelines using GitHub Actions, boosting deployment velocity by 40%.",
+    "Led team to build serverless APIs with AWS Lambda, API Gateway, and DynamoDB (98% uptime).",
+    "Optimized cloud costs via Auto Scaling and usage analysis, achieving 30% reduction in monthly AWS expenses."
+  ],
+  "order": 3
+}

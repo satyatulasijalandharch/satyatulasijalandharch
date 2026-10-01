@@ -9,36 +9,38 @@ import RecentPosts from "@components/home/RecentPosts.astro";
 import CertsSummary from "@components/home/CertsSummary.astro";
 
 const featuredWorks = (
-	await getCollection("work", ({ data }) => data.featured)
+  await getCollection("work", ({ data }) => data.featured)
 ).sort((a, b) => a.data.order - b.data.order);
 
 const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 
-const certs = (await getCollection("certs")).slice(0, 2);
+const certs = (await getCollection("certs"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
 
 const experience = (await getCollection("experience")).sort(
-	(a, b) => a.data.order - b.data.order,
+  (a, b) => a.data.order - b.data.order,
 );
 ---
 
 <BaseLayout
-	title="Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer"
-	description="Specialized in AWS platforms, declarative IaC with Terraform & AWS CDK, Docker containerization, and zero-downtime CI/CD automation."
+  title="Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer"
+  description="Specialized in AWS platforms, declarative IaC with Terraform & AWS CDK, Docker containerization, and zero-downtime CI/CD automation."
 >
-	<div class="space-y-12 sm:space-y-20">
-		<section class="border-b border-border pb-10 sm:pb-16 space-y-6">
-			<HeroSection />
-			<ImpactMetrics />
-		</section>
+  <div class="space-y-12 sm:space-y-20">
+    <section class="border-b border-border pb-10 sm:pb-16 space-y-6">
+      <HeroSection />
+      <ImpactMetrics />
+    </section>
 
-		<FeaturedWork works={featuredWorks} />
+    <FeaturedWork works={featuredWorks} />
 
-		<ExperienceSection experience={experience} />
+    <ExperienceSection experience={experience} />
 
-		<RecentPosts posts={recentPosts} />
+    <RecentPosts posts={recentPosts} />
 
-		<CertsSummary certs={certs} />
-	</div>
+    <CertsSummary certs={certs} />
+  </div>
 </BaseLayout>
