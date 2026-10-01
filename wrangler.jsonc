@@ -34,5 +34,6 @@
 			"pattern": "www.stjch.in",
 			"custom_domain": true
 		}
-	]
+	],
+	"previews": {}
 }
