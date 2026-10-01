@@ -22,16 +22,17 @@ src/content/
 │   ├── marumitra-cloud-engineer.json
 │   ├── codecafe-devops-engineer.json
 │   └── tezhire-devops-engineer.json
-└── work/             # glob() -> Markdown case studies
-    ├── finops-optimization-engine.md
-    └── multi-region-delivery-pipeline.md
+├── work/             # glob() -> Markdown case studies
+│   ├── finops-optimization-engine.md
+│   └── multi-region-delivery-pipeline.md
+└── skills.json       # Keystatic Singleton -> centralized technical skills ledger
 ```
 
 ## Local Authoring with Keystatic
 
-Keystatic manages all four collections through the local Admin UI. Run `npm run dev`, then open `http://localhost:4321/keystatic`. The development config registers Keystatic only for the dev command. Astro runs on Node.js locally, which Keystatic needs for filesystem storage. Production builds do not register the Admin route.
+Keystatic manages all four collections and the skills singleton through the local Admin UI. Run `npm run dev`, then open `http://localhost:4321/keystatic`. The development config registers Keystatic only for the dev command. Astro runs on Node.js locally, which Keystatic needs for filesystem storage. Production builds do not register the Admin route.
 
-Blog and work entries stay as `.md` files with frontmatter and Markdown bodies. Certification and experience entries are individual JSON files. Their filename and `id` field must match. Certificate `order` controls homepage display order; experience uses its existing `order` field.
+Blog and work entries stay as `.md` files with frontmatter and Markdown bodies. Certification and experience entries are individual JSON files. Skills are centralized in `src/content/skills.json` as a Keystatic Singleton, feeding searchable `fields.multiselect` inputs across `certs`, `experience`, and `work`.
 
 Keystatic saves content directly into the repository. Review and commit those content changes as usual; the existing deployment workflow publishes committed content. Cover images uploaded in the Admin UI go under `src/assets/images/content`.
 
@@ -106,7 +107,6 @@ Industry credentials and professional certifications.
 
 ```typescript
 z.object({
-  id: z.string(),
   name: z.string(),
   issuer: z.string(),
   issueDate: z.string(),
@@ -120,7 +120,7 @@ z.object({
 **Key Fields**:
 
 - `credentialUrl`: Validated as a fully qualified URL for external credential verification.
-- `skills`: Associated tags displayed as badges alongside the credential.
+- `skills`: Associated tags selected from the centralized skills ledger.
 - `order`: Explicit order for the homepage summary.
 
 ---
@@ -134,7 +134,6 @@ Chronological career history and professional experience.
 
 ```typescript
 z.object({
-  id: z.string(),
   period: z.string(),
   role: z.string(),
   company: z.string(),
@@ -149,6 +148,7 @@ z.object({
 **Key Fields**:
 
 - `focus`: Executive summary of core responsibilities and mission.
+- `stack`: Associated tech stack items selected from the centralized skills ledger.
 - `highlights`: Granular bullet points of measurable accomplishments.
 
 ---

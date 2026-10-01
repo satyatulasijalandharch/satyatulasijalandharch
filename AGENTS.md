@@ -10,7 +10,9 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Documentation
 
-Full documentation: https://docs.astro.build
+Project documentation is in `docs/` (index: `docs/README.md`). Always update the corresponding documentation files in `docs/` whenever making modifications to project structure, features, schemas, components, or configurations.
+
+Full Astro documentation: https://docs.astro.build
 
 Consult these guides before working on related tasks:
 

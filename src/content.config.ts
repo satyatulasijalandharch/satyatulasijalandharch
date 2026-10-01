@@ -43,7 +43,6 @@ const blog = defineCollection({
 const certs = defineCollection({
   loader: glob({ base: "./src/content/certs", pattern: "*.json" }),
   schema: z.object({
-    id: z.string(),
     name: z.string(),
     issuer: z.string(),
     issueDate: z.string(),
@@ -57,7 +56,6 @@ const certs = defineCollection({
 const experience = defineCollection({
   loader: glob({ base: "./src/content/experience", pattern: "*.json" }),
   schema: z.object({
-    id: z.string(),
     period: z.string(),
     role: z.string(),
     company: z.string(),

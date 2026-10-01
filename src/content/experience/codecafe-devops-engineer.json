@@ -1,10 +1,16 @@
 {
-  "id": "codecafe-devops-engineer",
-  "period": "2026",
-  "role": "DevOps Engineer",
   "company": "CodeCafe Lab IT Solutions",
+  "role": "DevOps Engineer",
+  "period": "2026",
   "location": "Jaipur, Rajasthan, India",
   "focus": "Managed Linux & AWS fleets, migrated ERPNext to Frappe Cloud (98% uptime), consolidated DNS into AWS Route 53 & Cloudflare, and established AWS IAM Identity Center (SSO).",
+  "highlights": [
+    "Managed AWS and Linux servers supporting web applications, backends, and admin panels.",
+    "Deployed Frappe and ERPNext apps on Ubuntu servers via Docker; migrated ERPNext setup to Frappe Cloud (98% uptime, daily backups).",
+    "Consolidated multiple domains from GoDaddy/Hostinger to AWS Route 53 with dedicated environment hosted zones.",
+    "Managed multi-account AWS structure using AWS Organizations and AWS IAM Identity Center (SSO).",
+    "Configured Cloudflare DNS, DDoS protection, origin server security, and SSL/TLS encryption."
+  ],
   "stack": [
     "AWS EC2",
     "Route 53",
@@ -12,13 +18,6 @@
     "Docker",
     "Nginx",
     "Passbolt"
-  ],
-  "highlights": [
-    "Managed AWS and Linux servers supporting web applications, backends, and admin panels.",
-    "Deployed Frappe and ERPNext apps on Ubuntu servers via Docker; migrated ERPNext setup to Frappe Cloud (98% uptime, daily backups).",
-    "Consolidated multiple domains from GoDaddy/Hostinger to AWS Route 53 with dedicated environment hosted zones.",
-    "Configured Cloudflare DNS, DDoS protection, origin server security, and SSL/TLS encryption.",
-    "Managed multi-account AWS structure using AWS Organizations and AWS IAM Identity Center (SSO)."
   ],
   "order": 2
 }
