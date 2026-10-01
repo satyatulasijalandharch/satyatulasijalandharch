@@ -55,7 +55,8 @@ jobs:
                       const sha = context.sha.substring(0, 7);
                       const commitMsg = context.payload.pull_request?.title || 'Commit ' + sha;
                       const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-                      const previewUrl = '${{ steps.preview.outputs.deployment-url || steps.preview.outputs.preview-url }}' || `https://pr-${prNumber}.stjch.in`;
+                      const previewUrl = '${{ steps.preview.outputs.deployment-url || steps.preview.outputs.preview-url }}' || `null`;
+                      const uniqueDeploymentUrl = `${{ steps.preview.outputs.preview-deployment-url }}` || `null`;
                       const isSuccess = '${{ job.status }}' === 'success';
 
                       const statusEmoji = isSuccess ? '✅' : '❌';
@@ -67,6 +68,7 @@ jobs:
                         '| Item | Details |',
                         '| :--- | :--- |',
                         isSuccess ? `| 🌐 **Preview URL** | [${previewUrl}](${previewUrl}) |` : '| 🌐 **Preview URL** | *Deployment Failed* |',
+                        isSuccess ? `| 🌐 **Unique Deployment URL** | [${uniqueDeploymentUrl}](${uniqueDeploymentUrl}) |` : '| 🌐 **Unique Deployment URL** | *Deployment Failed* |',
                         `| 📝 **Commit** | \`${sha}\` — ${commitMsg} |`,
                         `| 🔍 **Action Logs** | [View workflow run logs](${runUrl}) |`,
                         '',
@@ -86,4 +88,4 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  command: 'deploy --message ${{ toJSON(github.event.head_commit.message) }}'
+                  command: "deploy --message ${{ toJSON(github.event.head_commit.message) }}"
