@@ -2,8 +2,11 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import markdoc from '@astrojs/markdoc';
+import keystatic from '@keystatic/astro';
 import tailwindcss from '@tailwindcss/vite';
-import cloudflare from '@astrojs/cloudflare';
+
+const isDev = process.argv.includes('dev');
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +14,12 @@ export default defineConfig({
   redirects: {
     '/sitemap.xml': '/sitemap-index.xml',
   },
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap(),
+    markdoc(),
+    ...(isDev ? [keystatic()] : []),
+  ],
   site: "https://stjch.in",
   session: false,
   prefetch: {
@@ -24,6 +32,5 @@ export default defineConfig({
     provider: fontProviders.fontsource(),
     name: "Inter",
     cssVariable: "--font-sans"
-  }],
-  adapter: cloudflare()
+  }]
 });

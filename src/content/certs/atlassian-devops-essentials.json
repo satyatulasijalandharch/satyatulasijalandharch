@@ -1,0 +1,15 @@
+{
+  "id": "atlassian-devops-essentials",
+  "name": "Atlassian DevOps Essentials",
+  "issuer": "Atlassian",
+  "issueDate": "Nov 2024",
+  "validUntil": "Lifetime",
+  "credentialUrl": "https://www.linkedin.com/in/satyatulasijalandharch",
+  "skills": [
+    "DevOps Culture",
+    "Jira Software",
+    "Agile Sprints",
+    "Continuous Delivery"
+  ],
+  "order": 4
+}

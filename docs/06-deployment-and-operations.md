@@ -1,23 +1,21 @@
 # 06 - Deployment and Operations
 
-This document covers Cloudflare edge runtime integration, `wrangler.jsonc` configuration, DNS routing, and operations workflows.
+This document covers static site deployment to Cloudflare, `wrangler.jsonc` configuration, DNS routing, and operations workflows.
 
 ## Deployment Architecture
 
-The application is deployed to **Cloudflare** using `@astrojs/cloudflare` in combination with **Wrangler**:
+The application is built as a static Astro site and deployed to **Cloudflare Workers Static Assets** with **Wrangler**:
 
 ```mermaid
 graph LR
-    Dev[Developer] -->|git push / npm run cdeploy| Build[astro build]
-    Build -->|Static Assets| Dist[./dist Directory]
-    Build -->|Worker Script| Worker[Cloudflare Worker Entrypoint]
-    Dist -->|Asset Binding| CFAssets[Cloudflare ASSETS]
-    Worker -->|Edge Compute| CFEdge[Cloudflare Edge Network]
-    CFEdge --> User[Client / Browser]
+    Dev[Developer] -->|git push| Build[astro build]
+    Build -->|Static output| Dist[./dist Directory]
+    Dist -->|Wrangler deploy| CFAssets[Cloudflare Static Assets]
+    CFAssets --> User[Client / Browser]
 ```
 
-- **Static Assets**: HTML, CSS, JavaScript chunks, optimized images, and sitemaps are built into `./dist` and served through Cloudflare Workers Assets.
-- **SSR/Worker Runtime**: `@astrojs/cloudflare/entrypoints/server` acts as the edge entry point.
+- **Static output**: HTML, CSS, JavaScript chunks, optimized images, and sitemaps are built into `./dist`.
+- **No SSR runtime**: The deployment has no Astro Cloudflare adapter or Worker script. Wrangler publishes the static assets directly.
 
 ---
 
@@ -29,12 +27,10 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "satyatulasijalandharch",
-  "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-09-26",
   "compatibility_flags": ["global_fetch_strictly_public"],
   "assets": {
     "directory": "./dist",
-    "binding": "ASSETS",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page",
   },
@@ -68,9 +64,8 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
 
 ### Key Directives:
 
-- `main`: Edge handler provided by `@astrojs/cloudflare/entrypoints/server`.
 - `compatibility_date`: Fixed compatibility target (`2026-09-26`).
-- `assets.binding`: Binds the `./dist` folder to Cloudflare's static asset pipeline.
+- `assets.directory`: Publishes the static site generated in `./dist`.
 - `assets.html_handling: "drop-trailing-slash"`: Matches Astro's `trailingSlash: 'never'` setting.
 - `assets.not_found_handling: "404-page"`: Automatically routes 404 responses to `./dist/404.html`.
 - `routes`: Binds production custom domains `stjch.in` and `www.stjch.in`.
@@ -80,25 +75,22 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
 
 ## NPM Scripts & Operational Workflows
 
-All operational commands are configured in `package.json`:
+Project commands are configured in `package.json`:
 
 ```json
 "scripts": {
   "astro": "astro",
-  "dev": "astro dev --host",
+  "dev": "astro dev",
   "check": "astro check",
   "build": "astro build",
-  "preview": "astro preview",
-  "generate-types": "wrangler types",
-  "cdev": "astro build && npx wrangler dev",
-  "cdeploy": "astro build && npx wrangler deploy"
+  "preview": "astro preview"
 }
 ```
 
 ### 1. Local Development
 
 ```bash
-# Standard Astro dev server with network host access
+# Start the Astro development server
 npm run dev
 ```
 
@@ -109,26 +101,17 @@ npm run dev
 npm run check
 ```
 
-### 3. Edge Emulation with Wrangler
+### 3. Cloudflare Deployment
 
-```bash
-# Builds project and simulates Cloudflare Worker environment locally
-npm run cdev
-```
+The GitHub Actions workflow runs `npm run build`, then deploys the `./dist` assets through Wrangler.
 
-### 4. Direct Cloudflare Deployment
+---
 
-```bash
-# Builds the production bundle and deploys directly to Cloudflare
-npm run cdeploy
-```
+## Local Keystatic Authoring
 
-### 5. Type Generation for Cloudflare Bindings
+The Keystatic Admin UI uses local filesystem storage and is available only during development. Run `npm run dev` and open `http://localhost:4321/keystatic`. Astro uses Node.js locally, which Keystatic needs for filesystem APIs. Production builds do not register Keystatic, so the deployed site does not expose a local-storage editor.
 
-```bash
-# Regenerates worker-configuration.d.ts from wrangler.jsonc
-npm run generate-types
-```
+Keystatic changes files under `src/content/`. Review and commit those files to publish content through the existing GitHub Actions deployment workflow. Production editing is not configured; it would require a separate storage and hosting decision.
 
 ---
 

@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
-import { glob, file } from "astro/loaders";
+import { glob } from "astro/loaders";
 
 const work = defineCollection({
   loader: glob({
@@ -18,7 +18,7 @@ const work = defineCollection({
       stack: z.array(z.string()),
       featured: z.boolean().default(false),
       order: z.number().default(0),
-      cover: image().optional(),
+      cover: image().nullish(),
     }),
 });
 
@@ -32,35 +32,36 @@ const blog = defineCollection({
       title: z.string(),
       description: z.string(),
       pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
+      updatedDate: z.coerce.date().nullish(),
       topic: z.string(),
       readTime: z.string().default("5 min"),
       draft: z.boolean().default(false),
-      cover: image().optional(),
+      cover: image().nullish(),
     }),
 });
 
 const certs = defineCollection({
-  loader: file("src/content/certs/certs.json"),
+  loader: glob({ base: "./src/content/certs", pattern: "*.json" }),
   schema: z.object({
     id: z.string(),
     name: z.string(),
     issuer: z.string(),
     issueDate: z.string(),
-    validUntil: z.string().optional(),
+    validUntil: z.string().nullish(),
     credentialUrl: z.url(),
     skills: z.array(z.string()).optional(),
+    order: z.number().default(0),
   }),
 });
 
 const experience = defineCollection({
-  loader: file("src/content/experience/experience.json"),
+  loader: glob({ base: "./src/content/experience", pattern: "*.json" }),
   schema: z.object({
     id: z.string(),
     period: z.string(),
     role: z.string(),
     company: z.string(),
-    location: z.string().optional(),
+    location: z.string().nullish(),
     focus: z.string(),
     stack: z.array(z.string()),
     highlights: z.array(z.string()).optional(),

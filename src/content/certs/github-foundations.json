@@ -1,0 +1,15 @@
+{
+  "id": "github-foundations",
+  "name": "GitHub Foundations",
+  "issuer": "Microsoft",
+  "issueDate": "Oct 2025",
+  "validUntil": "2028",
+  "credentialUrl": "https://learn.microsoft.com/api/credentials/share/en-gb/SatyaTulasiJalandharCH-4390/591FE247C2A248BF?sharingId",
+  "skills": [
+    "Git",
+    "GitHub Actions",
+    "Security",
+    "GitHub Enterprise"
+  ],
+  "order": 1
+}

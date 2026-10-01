@@ -1,0 +1,15 @@
+{
+  "id": "terraform-basics",
+  "name": "Terraform Basics Training Course",
+  "issuer": "KodeKloud",
+  "issueDate": "Oct 2025",
+  "validUntil": "Lifetime",
+  "credentialUrl": "https://learn.kodekloud.com/certificate/f3b2fc38-3c97-4d2f-bdac-8a2a44d69d4b",
+  "skills": [
+    "HCL",
+    "Terraform State",
+    "Providers & Modules",
+    "IaC Provisioning"
+  ],
+  "order": 3
+}

@@ -1,0 +1,22 @@
+{
+  "id": "marumitra-cloud-engineer",
+  "period": "2026 — PRES",
+  "role": "Cloud Engineer",
+  "company": "MaruMitra",
+  "location": "Jaipur, Rajasthan, India",
+  "focus": "Deploy and maintain Next.js & React Vite workloads on Vercel; managed GitHub Org permissions and secret governance across Actions & Codespaces.",
+  "stack": [
+    "Vercel",
+    "Next.js",
+    "Supabase",
+    "GitHub Actions",
+    "Claude Code"
+  ],
+  "highlights": [
+    "Deploy and maintain Next.js and React Vite applications across environments using Vercel.",
+    "Configure Vercel analytics and monitoring to track performance and Core Web Vitals.",
+    "Manage GitHub organization permissions, access control, and secret management across GitHub Actions and Codespaces.",
+    "Integrate Supabase backend services for database connectivity and authentication."
+  ],
+  "order": 1
+}
