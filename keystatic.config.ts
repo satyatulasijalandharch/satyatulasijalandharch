@@ -1,12 +1,34 @@
-import { collection, config, fields } from '@keystatic/core';
+import { collection, config, fields, singleton } from '@keystatic/core';
+import skillData from './src/content/skills.json';
 
 const contentImage = {
     directory: 'src/assets/images/content',
     publicPath: '@assets/images/content/',
 };
 
+const skillOptions = skillData.skills.map((skill) => ({
+    label: skill,
+    value: skill,
+}));
+
 export default config({
     storage: { kind: 'local' },
+    singletons: {
+        skills: singleton({
+            label: 'Skills Ledger',
+            path: 'src/content/skills',
+            format: { data: 'json' },
+            schema: {
+                skills: fields.array(fields.text({
+                    label: 'Skill Name',
+                    validation: { isRequired: true },
+                }), {
+                    label: 'All Skills',
+                    itemLabel: (props) => props.value,
+                }),
+            },
+        }),
+    },
     collections: {
         blog: collection({
             label: 'Blog',
@@ -40,6 +62,7 @@ export default config({
         work: collection({
             label: 'Work',
             path: 'src/content/work/*',
+            entryLayout: 'content',
             slugField: 'title',
             format: { contentField: 'content' },
             schema: {
@@ -49,8 +72,10 @@ export default config({
                 company: fields.text({ label: 'Company' }),
                 role: fields.text({ label: 'Role' }),
                 metric: fields.text({ label: 'Metric' }),
-                stack: fields.array(fields.text({ label: 'Technology' }), {
+                stack: fields.multiselect({
                     label: 'Stack',
+                    options: skillOptions,
+                    defaultValue: [],
                 }),
                 featured: fields.checkbox({ label: 'Featured', defaultValue: false }),
                 order: fields.integer({ label: 'Order', defaultValue: 0 }),
@@ -69,11 +94,10 @@ export default config({
         certs: collection({
             label: 'Certifications',
             path: 'src/content/certs/*',
-            slugField: 'id',
+            slugField: 'name',
             format: { data: 'json' },
             schema: {
-                id: fields.slug({ name: { label: 'Entry ID' } }),
-                name: fields.text({ label: 'Name' }),
+                name: fields.slug({ name: { label: 'Name' } }),
                 issuer: fields.text({ label: 'Issuer' }),
                 issueDate: fields.text({ label: 'Issue date' }),
                 validUntil: fields.text({
@@ -81,8 +105,10 @@ export default config({
                     validation: { isRequired: false },
                 }),
                 credentialUrl: fields.url({ label: 'Credential URL' }),
-                skills: fields.array(fields.text({ label: 'Skill' }), {
+                skills: fields.multiselect({
                     label: 'Skills',
+                    options: skillOptions,
+                    defaultValue: [],
                 }),
                 order: fields.integer({ label: 'Order', defaultValue: 0 }),
             },
@@ -90,23 +116,29 @@ export default config({
         experience: collection({
             label: 'Experience',
             path: 'src/content/experience/*',
-            slugField: 'id',
+            slugField: 'company',
             format: { data: 'json' },
             schema: {
-                id: fields.slug({ name: { label: 'Entry ID' } }),
-                period: fields.text({ label: 'Period' }),
+                company: fields.slug({ name: { label: 'Company' } }),
                 role: fields.text({ label: 'Role' }),
-                company: fields.text({ label: 'Company' }),
+                period: fields.text({ label: 'Period' }),
                 location: fields.text({
                     label: 'Location',
                     validation: { isRequired: false },
                 }),
                 focus: fields.text({ label: 'Focus', multiline: true }),
-                stack: fields.array(fields.text({ label: 'Technology' }), {
-                    label: 'Stack',
-                }),
-                highlights: fields.array(fields.text({ label: 'Highlight', multiline: true }), {
+                highlights: fields.array(fields.text({
+                    label: 'Highlight',
+                    multiline: true,
+                    validation: { isRequired: true },
+                }), {
                     label: 'Highlights',
+                    itemLabel: props => props.value
+                }),
+                stack: fields.multiselect({
+                    label: 'Stack',
+                    options: skillOptions,
+                    defaultValue: [],
                 }),
                 order: fields.integer({ label: 'Order', defaultValue: 0 }),
             },
