@@ -66,10 +66,12 @@ The outer HTML document shell for every route on the site.
 
 - **Purpose**: Sticky header bar (`sticky top-0 z-50 bg-background/95 backdrop-blur-md`).
 - **Features**:
-  - Logo/Monogram link to `/`.
-  - Nav links: `/work`, `/about`, `/certs`, `/blog`.
-  - Active route highlighting based on `Astro.url.pathname`.
-  - Integrates `ThemeToggle` and `ResumeButton`.
+  - Nav links: `/`, `/work`, `/blog`, `/certs`, `/about`.
+  - Active route highlighting matches exact paths and slash-delimited descendants.
+  - Desktop navigation stays inline. Mobile navigation opens as a vertical menu.
+  - Mobile links remain visible when JavaScript is disabled; the processed Astro script enhances them with a compact toggle.
+  - Theme toggle and resume action stay visible at every screen size.
+  - Mobile menu supports Escape and closes after selecting a route.
 
 ### `SiteFooter.astro`
 
