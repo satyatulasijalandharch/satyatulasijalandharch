@@ -106,10 +106,10 @@ The outer HTML document shell for every route on the site.
 
 ### `CertCard.astro`
 
-- **Purpose**: Ledger row for professional certifications.
+- **Purpose**: Responsive ledger row for professional certifications.
 - **Props**:
-  - `cert: CollectionEntry<'certs'>['data']`
-- **UI Elements**: Certification title, issuer, issue date, expiration date, skill badges, and verified credential link.
+  - `cert: CollectionEntry<'certs'>`
+- **UI Elements**: Certification title, competencies, issuer, issue date, and accessible verification link. Details stack on mobile and align in ledger columns on desktop.
 
 ### `Portrait.astro`
 

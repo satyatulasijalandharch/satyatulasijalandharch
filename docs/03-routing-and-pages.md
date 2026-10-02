@@ -39,11 +39,12 @@ Provides technical background and credibility markers:
 
 ### 3. Certifications Page (`/certs`) — `src/pages/certs.astro`
 
-Presents a credential ledger:
+Presents a responsive credential ledger, ordered by issue date with newest first:
 
 - Queries all entries in `certs` collection.
-- Renders credentials in an ordered list via `CertCard`.
-- Displays certification title, issuer, issue date, valid period, skill tags, and credential verification URLs.
+- Renders each credential through `CertCard`.
+- Desktop rows align issue date, credential and competencies, issuer, and verification link.
+- Mobile rows stack credential details and place issue date beside the verification link.
 
 ### 4. Blog Index (`/blog`) — `src/pages/blog/index.astro`
 
