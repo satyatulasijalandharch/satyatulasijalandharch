@@ -3,7 +3,7 @@ import Container from "./Container.astro";
 import ResumeButton from "@components/ResumeButton.astro";
 import ThemeToggle from "@components/ThemeToggle.astro";
 
-const pathname = new URL(Astro.request.url).pathname;
+const pathname = Astro.url.pathname;
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -15,7 +15,7 @@ const navItems = [
 
 const isActive = (href: string) => {
   if (href === "/") return pathname === "/";
-  return pathname.startsWith(href);
+  return pathname === href || pathname.startsWith(`${href}/`);
 };
 ---
 
@@ -33,7 +33,7 @@ const isActive = (href: string) => {
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="primary-navigation"
-        class="order-1 inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-subtle text-text-secondary transition-colors hover:bg-surface hover:text-text-primary md:hidden"
+        class="hidden order-1 inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-subtle text-text-secondary transition-colors hover:bg-surface hover:text-text-primary md:hidden"
       >
         <svg
           data-menu-open-icon
@@ -65,13 +65,13 @@ const isActive = (href: string) => {
 
       <div
         id="primary-navigation"
-        class="order-3 hidden w-full flex-col gap-1 border-t border-border pt-2 md:order-1 md:flex md:w-auto md:flex-row md:items-center md:gap-8 md:border-0 md:pt-0"
+        class="order-3 w-full flex-col gap-1 border-t border-border pt-2 md:order-1 md:flex md:w-auto md:flex-row md:items-center md:gap-8 md:border-0 md:pt-0"
       >
         {
           navItems.map((item) => (
             <a
               href={item.href}
-              class={`py-2 transition-colors tracking-tight whitespace-nowrap md:py-1 ${
+              class={`block py-2 transition-colors tracking-tight whitespace-nowrap md:py-1 ${
                 isActive(item.href)
                   ? "text-text-primary font-medium underline underline-offset-4 decoration-border"
                   : "text-text-secondary hover:text-text-primary"
@@ -96,8 +96,7 @@ const isActive = (href: string) => {
   function setupMobileMenu() {
     const toggle = document.getElementById("mobile-menu-toggle");
     const menu = document.getElementById("primary-navigation");
-    if (!toggle || !menu || toggle.dataset.initialized) return;
-    toggle.dataset.initialized = "true";
+    if (!toggle || !menu) return;
 
     const setOpen = (open: boolean) => {
       toggle.setAttribute("aria-expanded", String(open));
@@ -115,6 +114,8 @@ const isActive = (href: string) => {
         ?.classList.toggle("hidden", !open);
     };
 
+    setOpen(false);
+    toggle.classList.remove("hidden");
     toggle.addEventListener("click", () =>
       setOpen(toggle.getAttribute("aria-expanded") !== "true"),
     );
@@ -133,5 +134,4 @@ const isActive = (href: string) => {
   }
 
   setupMobileMenu();
-  document.addEventListener("astro:after-swap", setupMobileMenu);
 </script>
