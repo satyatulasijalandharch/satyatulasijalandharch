@@ -43,17 +43,18 @@ graph TD
 
 ## Core Technology Stack
 
-| Technology             | Version / Spec                  | Purpose                                                             |
-| :--------------------- | :------------------------------ | :------------------------------------------------------------------ |
-| **Astro**              | `^7.3.5`                        | Static site generation and web framework                            |
-| **Cloudflare Adapter** | `@astrojs/cloudflare` `^14.3.3` | Cloudflare Workers/Pages edge deployment target                     |
-| **Wrangler**           | `^4.143.0`                      | Cloudflare CLI for local worker emulation and deployments           |
-| **Tailwind CSS**       | `^4.3.3`                        | Utility-first styling via `@tailwindcss/vite`                       |
-| **TypeScript**         | `^6.0.3`                        | Strict type checking across routes, components, and content schemas |
-| **React**              | `^19.3.0`                       | `@astrojs/react` integration configured for UI islands when needed  |
-| **Sitemap**            | `@astrojs/sitemap` `^3.7.4`     | Automated sitemap generation at build time                          |
-| **RSS**                | `@astrojs/rss` `^4.0.19`        | Standards-compliant RSS 2.0 XML generation                          |
-| **Fontsource**         | `@fontsource-variable/inter`    | Self-hosted Inter variable font via Astro font provider             |
+| Technology             | Version / Spec                  | Purpose                                                              |
+| :--------------------- | :------------------------------ | :------------------------------------------------------------------- |
+| **Astro**              | `^7.3.5`                        | Static site generation and web framework                             |
+| **Cloudflare Adapter** | `@astrojs/cloudflare` `^14.3.3` | Cloudflare Workers/Pages edge deployment target                      |
+| **Wrangler**           | `^4.143.0`                      | Cloudflare CLI for local worker emulation and deployments            |
+| **Tailwind CSS**       | `^4.3.3`                        | Utility-first styling via `@tailwindcss/vite`                        |
+| **TypeScript**         | `^6.0.3`                        | Strict type checking across routes, components, and content schemas  |
+| **Node.js types**      | `@types/node` `^26.6.4`         | Type definitions for Node globals used in Astro configuration        |
+| **React**              | `^19.3.0`                       | `@astrojs/react` integration configured for UI islands when needed   |
+| **Sitemap**            | `src/pages/sitemap.xml.ts`      | Project-owned sitemap generation from routes and content collections |
+| **RSS**                | `@astrojs/rss` `^4.0.19`        | Standards-compliant RSS 2.0 XML generation                           |
+| **Fontsource**         | `@fontsource-variable/inter`    | Self-hosted Inter variable font via Astro font provider              |
 
 ---
 
@@ -136,19 +137,15 @@ TypeScript path aliases are configured in `tsconfig.json` and resolve seamlessly
 import { defineConfig, fontProviders } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://stjch.in",
   trailingSlash: "never",
   adapter: cloudflare(),
-  integrations: [react(), sitemap()],
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
-  },
-  redirects: {
-    "/sitemap.xml": "/sitemap-index.xml",
   },
   prefetch: {
     prefetchAll: true,
@@ -174,7 +171,7 @@ export default defineConfig({
 - `adapter: cloudflare()`: Enables deployment to Cloudflare runtime.
 - `trailingSlash: 'never'`: Normalizes canonical URLs across all pages.
 - `prefetchAll: true`: Accelerates client navigation by automatically prefetching links.
-- `redirects`: Maps `/sitemap.xml` to Astro's generated `/sitemap-index.xml`.
+- `src/pages/sitemap.xml.ts`: Generates `/sitemap.xml` from static routes and content collections.
 - `session: false`: Explicitly disables session middleware for lean static delivery.
 
 ---

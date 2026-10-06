@@ -4,17 +4,18 @@ This document details all routes, pages, static generation mechanisms, and endpo
 
 ## Route Table
 
-| File Path                    | Route URL    | Page Type          | Content Queried                                 |
-| :--------------------------- | :----------- | :----------------- | :---------------------------------------------- |
-| `src/pages/index.astro`      | `/`          | Static             | `work`, `blog`, `certs`, `experience`           |
-| `src/pages/about.astro`      | `/about`     | Static             | Structured competencies, academics, publication |
-| `src/pages/certs.astro`      | `/certs`     | Static             | `certs` collection                              |
-| `src/pages/blog/index.astro` | `/blog`      | Static             | `blog` collection (non-draft)                   |
-| `src/pages/blog/[id].astro`  | `/blog/[id]` | Dynamic Static     | Single `blog` entry rendered via `render()`     |
-| `src/pages/work/index.astro` | `/work`      | Static             | `work` collection                               |
-| `src/pages/work/[id].astro`  | `/work/[id]` | Dynamic Static     | Single `work` entry rendered via `render()`     |
-| `src/pages/404.astro`        | `/404`       | Static             | None (`noindex={true}`)                         |
-| `src/pages/rss.xml.ts`       | `/rss.xml`   | API / XML Endpoint | `blog` collection                               |
+| File Path                    | Route URL      | Page Type          | Content Queried                                     |
+| :--------------------------- | :------------- | :----------------- | :-------------------------------------------------- |
+| `src/pages/index.astro`      | `/`            | Static             | `work`, `blog`, `certs`, `experience`               |
+| `src/pages/about.astro`      | `/about`       | Static             | Structured competencies, academics, publication     |
+| `src/pages/certs.astro`      | `/certs`       | Static             | `certs` collection                                  |
+| `src/pages/blog/index.astro` | `/blog`        | Static             | `blog` collection (non-draft)                       |
+| `src/pages/blog/[id].astro`  | `/blog/[id]`   | Dynamic Static     | Single `blog` entry rendered via `render()`         |
+| `src/pages/work/index.astro` | `/work`        | Static             | `work` collection                                   |
+| `src/pages/work/[id].astro`  | `/work/[id]`   | Dynamic Static     | Single `work` entry rendered via `render()`         |
+| `src/pages/404.astro`        | `/404`         | Static             | None (`noindex={true}`)                             |
+| `src/pages/rss.xml.ts`       | `/rss.xml`     | API / XML Endpoint | `blog` collection                                   |
+| `src/pages/sitemap.xml.ts`   | `/sitemap.xml` | API / XML Endpoint | Static routes, published `blog`, and `work` entries |
 
 ---
 
@@ -121,17 +122,9 @@ export async function GET(context: APIContext) {
 }
 ```
 
-### Sitemap Redirect
+### Sitemap (`src/pages/sitemap.xml.ts`)
 
-Configured in `astro.config.mjs`:
-
-```javascript
-redirects: {
-  '/sitemap.xml': '/sitemap-index.xml',
-}
-```
-
-Astro's `@astrojs/sitemap` integration outputs `sitemap-index.xml` in `dist/`. The redirect ensures search engine spiders requesting `/sitemap.xml` resolve without error.
+Generates a sitemap XML document from the static page routes, published blog posts, and work entries. `public/robots.txt` and the layout sitemap link both point to `/sitemap.xml`.
 
 ---
 

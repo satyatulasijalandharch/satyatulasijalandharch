@@ -17,7 +17,6 @@
     "@astrojs/markdoc": "^2.0.9",
     "@astrojs/react": "^7.0.0",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.4",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.3.3",
@@ -33,5 +32,8 @@
   "allowScripts": {
     "esbuild": true,
     "workerd": true
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4"
   }
 }
