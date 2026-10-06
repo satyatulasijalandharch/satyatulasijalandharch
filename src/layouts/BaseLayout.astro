@@ -9,90 +9,90 @@ import Container from "@components/layout/Container.astro";
 import defaultProfileImage from "@assets/images/profile.png";
 
 interface Props {
-    title?: string;
-    description?: string;
-    image?: string | ImageMetadata;
-    canonicalURL?: string;
-    noindex?: boolean;
+	title?: string;
+	description?: string;
+	image?: string | ImageMetadata;
+	canonicalURL?: string;
+	noindex?: boolean;
 }
 
 const {
-    title = "Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer",
-    description = "Cloud & DevOps Engineer with 2+ years of experience designing and managing multi-cloud infrastructure across AWS, OCI, and Vercel. Expert in Terraform, AWS CDK, Docker, and CI/CD automation.",
-    image = defaultProfileImage,
-    canonicalURL = Astro.url.href,
-    noindex = false,
+	title = "Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer",
+	description = "Cloud & DevOps Engineer with 2+ years of experience designing and managing multi-cloud infrastructure across AWS, OCI, and Vercel. Expert in Terraform, AWS CDK, Docker, and CI/CD automation.",
+	image = defaultProfileImage,
+	canonicalURL = Astro.url.href,
+	noindex = false,
 } = Astro.props;
 
 const siteTitle = title.includes("Satya Tulasi Jalandhar C H")
-    ? title
-    : `${title} | Satya Tulasi Jalandhar C H`;
+	? title
+	: `${title} | Satya Tulasi Jalandhar C H`;
 
 const resolvedImageSrc =
-    typeof image === "string"
-        ? image
-        : (
-              await getImage({
-                  src: image,
-                  format: "webp",
-                  width: 1200,
-                  height: 630,
-              })
-          ).src;
+	typeof image === "string"
+		? image
+		: (
+				await getImage({
+					src: image,
+					format: "webp",
+					width: 1200,
+					height: 630,
+				})
+			).src;
 
 const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
-    .href;
+	.href;
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth bg-background text-text-primary">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="generator" content={Astro.generator} />
-        {noindex && <meta name="robots" content="noindex, nofollow" />}
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 
-        <title>{siteTitle}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalURL} />
-        <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="Satya Tulasi Jalandhar C H | Engineering Notes"
-            href={new URL("rss.xml", Astro.site)}
-        />
-        <link rel="sitemap" href="/sitemap-index.xml" />
+		<title>{siteTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title="Satya Tulasi Jalandhar C H | Engineering Notes"
+			href={new URL("rss.xml", Astro.site)}
+		/>
+		<link rel="sitemap" href="/sitemap.xml" />
 
-        <!-- Favicon & Touch Icons -->
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<!-- Favicon & Touch Icons -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        <ThemeProvider />
+		<ThemeProvider />
 
-        <!-- Open Graph / Meta -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalURL} />
-        <meta property="og:title" content={siteTitle} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={ogImageUrl} />
+		<!-- Open Graph / Meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageUrl} />
 
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={siteTitle} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImageUrl} />
-    </head>
-    <body
-        id="top"
-        class="min-h-screen flex flex-col bg-background text-text-primary font-sans selection:bg-surface"
-    >
-        <SiteHeader />
-        <Container class="flex-1 py-8 sm:py-12">
-            <main id="main-content">
-                <slot />
-            </main>
-        </Container>
-        <SiteFooter />
-    </body>
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={siteTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+	</head>
+	<body
+		id="top"
+		class="min-h-screen flex flex-col bg-background text-text-primary font-sans selection:bg-surface"
+	>
+		<SiteHeader />
+		<Container class="flex-1 py-8 sm:py-12">
+			<main id="main-content">
+				<slot />
+			</main>
+		</Container>
+		<SiteFooter />
+	</body>
 </html>
