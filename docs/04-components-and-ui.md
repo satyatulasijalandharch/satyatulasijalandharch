@@ -85,6 +85,16 @@ The outer HTML document shell for every route on the site.
   - Social profiles: GitHub, LinkedIn, RSS link.
   - Interactive "Back to top" button with smooth window scrolling.
 
+### `PageHeader.astro`
+
+- **Purpose**: Reusable standardized header block for subpages (`about`, `certs`, `work`, `blog`).
+- **Props**:
+  - `eyebrow?: string`: Uppercase category label (e.g., `WRITING & ANALYSIS`).
+  - `title: string`: Main H1 heading.
+  - `description?: string`: Subtitle narrative text.
+  - `class?: string`: Optional outer CSS overrides.
+- **Slot**: Default slot for optional actions or badges below the description.
+
 ---
 
 ## Reusable Core Components

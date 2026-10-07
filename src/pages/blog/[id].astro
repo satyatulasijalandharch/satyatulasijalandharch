@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
 import { getCollection, getEntry, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -60,45 +61,37 @@ const blogPostingSchema = {
     articleSection={post.data.topic}
     jsonLd={blogPostingSchema}
 >
-    <article class="max-w-3xl mx-auto space-y-8">
-        <header class="border-b border-border pb-6 space-y-3">
+    <article class="space-y-8">
+        <PageHeader
+            eyebrow={post.data.topic}
+            title={post.data.title}
+            description={post.data.description}
+        >
             <div
-                class="flex flex-col gap-1 text-xs text-text-muted tabular-nums sm:flex-row sm:items-center sm:justify-between"
+                class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted tabular-nums pt-2"
             >
-                <span>{post.data.topic}</span>
-                <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <span>
-                        Published
-                        <time datetime={post.data.pubDate.toISOString()}>
-                            {formattedDate}
-                        </time>
-                    </span>
-                    {
-                        post.data.updatedDate && formattedUpdatedDate && (
-                            <span>
-                                Updated
-                                <time
-                                    datetime={post.data.updatedDate.toISOString()}
-                                >
-                                    {formattedUpdatedDate}
-                                </time>
-                            </span>
-                        )
-                    }
-                    <span>{post.data.readTime} read</span>
-                </div>
+                <span>
+                    Published
+                    <time datetime={post.data.pubDate.toISOString()}>
+                        {formattedDate}
+                    </time>
+                </span>
+                {
+                    post.data.updatedDate && formattedUpdatedDate && (
+                        <span>
+                            &bull; Updated
+                            <time
+                                datetime={post.data.updatedDate.toISOString()}
+                            >
+                                {formattedUpdatedDate}
+                            </time>
+                        </span>
+                    )
+                }
+                <span>&bull;</span>
+                <span>{post.data.readTime} read</span>
             </div>
-
-            <h1
-                class="text-2xl sm:text-4xl font-semibold tracking-tight text-text-primary"
-            >
-                {post.data.title}
-            </h1>
-
-            <p class="text-base text-text-secondary leading-relaxed">
-                {post.data.description}
-            </p>
-        </header>
+        </PageHeader>
 
         <div
             class="prose prose-neutral dark:prose-invert max-w-none text-text-secondary leading-relaxed space-y-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-text-primary [&_h2]:pt-4 [&_p]:leading-relaxed [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1"

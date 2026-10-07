@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
 import { getCollection } from "astro:content";
 import CertCard from "@components/CertCard.astro";
 
@@ -21,22 +22,11 @@ const certs = (await getCollection("certs")).sort(
   description="Verified cloud and infrastructure certifications awarded by Oracle, GitHub, and Atlassian."
 >
   <div class="space-y-10">
-    <header class="border-b border-border pb-6 space-y-2">
-      <div class="text-xs uppercase tracking-wider text-text-muted">
-        CREDENTIALS LEDGER
-      </div>
-      <h1
-        class="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary"
-      >
-        Verified Certifications &amp; Accreditations
-      </h1>
-      <p
-        class="text-sm sm:text-base text-text-secondary max-w-2xl leading-relaxed"
-      >
-        Externally verifiable credentials across cloud platforms, declarative
-        infrastructure, and continuous delivery systems.
-      </p>
-    </header>
+    <PageHeader
+      eyebrow="CREDENTIALS LEDGER"
+      title="Verified Certifications & Accreditations"
+      description="Externally verifiable credentials across cloud platforms, declarative infrastructure, and continuous delivery systems."
+    />
 
     <div class="border-t border-border">
       <div
