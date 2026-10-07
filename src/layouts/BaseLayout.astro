@@ -12,15 +12,31 @@ interface Props {
 	title?: string;
 	description?: string;
 	image?: string | ImageMetadata;
+	imageAlt?: string;
 	canonicalURL?: string;
+	article?: boolean;
+	publishedTime?: Date;
+	modifiedTime?: Date;
+	articleSection?: string;
+	jsonLd?: Record<string, unknown>;
 	noindex?: boolean;
 }
+
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const siteURL = new URL("/", siteOrigin).href;
+const siteName = "Satya Tulasi Jalandhar C H";
 
 const {
 	title = "Satya Tulasi Jalandhar C H — Cloud & DevOps Engineer",
 	description = "Cloud & DevOps Engineer with 2+ years of experience designing and managing multi-cloud infrastructure across AWS, OCI, and Vercel. Expert in Terraform, AWS CDK, Docker, and CI/CD automation.",
 	image = defaultProfileImage,
-	canonicalURL = Astro.url.href,
+	imageAlt = "Portrait of Satya Tulasi Jalandhar C H",
+	canonicalURL = new URL(Astro.url.pathname, siteOrigin).href,
+	article = false,
+	publishedTime,
+	modifiedTime,
+	articleSection,
+	jsonLd,
 	noindex = false,
 } = Astro.props;
 
@@ -40,8 +56,18 @@ const resolvedImageSrc =
 				})
 			).src;
 
-const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
-	.href;
+const ogImageUrl = new URL(resolvedImageSrc, siteOrigin).href;
+const serializeJsonLd = (schema: Record<string, unknown>) =>
+	JSON.stringify(schema).replace(/</g, "\\u003c");
+const websiteJsonLd = serializeJsonLd({
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": new URL("#website", siteURL).href,
+	url: siteURL,
+	name: siteName,
+	inLanguage: "en",
+});
+const pageJsonLd = jsonLd ? serializeJsonLd(jsonLd) : undefined;
 ---
 
 <!doctype html>
@@ -62,6 +88,12 @@ const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
 			href={new URL("rss.xml", Astro.site)}
 		/>
 		<link rel="sitemap" href="/sitemap.xml" />
+		<script type="application/ld+json" set:html={websiteJsonLd} />
+		{
+			pageJsonLd && (
+				<script type="application/ld+json" set:html={pageJsonLd} />
+			)
+		}
 
 		<!-- Favicon & Touch Icons -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -71,22 +103,52 @@ const ogImageUrl = new URL(resolvedImageSrc, Astro.site || Astro.url.origin)
 		<ThemeProvider />
 
 		<!-- Open Graph / Meta -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={article ? "article" : "website"} />
+		<meta property="og:site_name" content={siteName} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={siteTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content={imageAlt} />
+		{
+			article && publishedTime && (
+				<meta
+					property="article:published_time"
+					content={publishedTime.toISOString()}
+				/>
+			)
+		}
+		{
+			article && modifiedTime && (
+				<meta
+					property="article:modified_time"
+					content={modifiedTime.toISOString()}
+				/>
+			)
+		}
+		{
+			articleSection && (
+				<meta property="article:section" content={articleSection} />
+			)
+		}
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={siteTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="twitter:image:alt" content={imageAlt} />
 	</head>
 	<body
 		id="top"
 		class="min-h-screen flex flex-col bg-background text-text-primary font-sans selection:bg-surface"
 	>
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-background focus:px-4 focus:py-2 focus:text-text-primary"
+		>
+			Skip to main content
+		</a>
 		<SiteHeader />
 		<Container class="flex-1 py-8 sm:py-12">
 			<main id="main-content">

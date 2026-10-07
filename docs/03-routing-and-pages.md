@@ -68,7 +68,8 @@ Tabular listing of technical writing:
   }
   ```
 - Renders Markdown content with `await render(post)`.
-- Includes back-to-index navigation, header metadata, reading time, and formatted publish date.
+- Includes back-to-index navigation, header metadata, reading time, and formatted publish/update dates.
+- Sends article-specific Open Graph publication metadata and `BlogPosting` JSON-LD from the same collection fields.
 
 ### 6. Work Index (`/work`) — `src/pages/work/index.astro`
 
@@ -111,7 +112,8 @@ export async function GET(context: APIContext) {
     title: "Satya Tulasi Jalandhar C H - Cloud & DevOps Engineer",
     description:
       "Writing on cloud architecture, IaC, Kubernetes, and platform reliability.",
-    site: context.site!,
+    site: context.site ?? context.url,
+    trailingSlash: false,
     items: sorted.map((post) => ({
       title: post.data.title,
       description: post.data.description,
@@ -125,6 +127,8 @@ export async function GET(context: APIContext) {
 ### Sitemap (`src/pages/sitemap.xml.ts`)
 
 Generates a sitemap XML document from the static page routes, published blog posts, and work entries. `public/robots.txt` and the layout sitemap link both point to `/sitemap.xml`.
+
+The generated sitemap contains canonical apex URLs for the five static index pages, published blog posts, and work entries. It intentionally excludes the noindex 404 page; `lastmod` is omitted because the work collection does not provide a verified modification date.
 
 ---
 

@@ -26,7 +26,7 @@
   --color-border-hairline: #E4E4E7;
   --color-text-primary: #111111;
   --color-text-secondary: #52525B;
-  --color-text-muted: #71717A;
+  --color-text-muted: #6D6D76;
   --color-status-available: #16A34A;
 }
 
@@ -39,7 +39,7 @@
   --color-border-hairline: #27272A;
   --color-text-primary: #FAFAFA;
   --color-text-secondary: #A1A1AA;
-  --color-text-muted: #71717A;
+  --color-text-muted: #80808A;
   --color-status-available: #22C55E;
 }
 
@@ -55,6 +55,11 @@ html {
 /* Smooth colour transitions when toggling theme */
 html {
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
 }
 
 /* Tabular figures for telemetry ledgers, dates, and metrics */

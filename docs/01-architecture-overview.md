@@ -22,9 +22,9 @@ graph TD
     end
 
     subgraph Output & Deployment
-        Static[Static Assets in ./dist]
-        Server[Worker Entrypoint @astrojs/cloudflare]
-        CF[Cloudflare Edge Network - stjch.in]
+      Static[Static HTML and assets in ./dist]
+      Wrangler[Wrangler Workers Static Assets]
+      CF[Cloudflare - stjch.in]
     end
 
     MD --> Layer
@@ -34,9 +34,8 @@ graph TD
     Vite --> Astro
     Font --> Astro
     Astro --> Static
-    Astro --> Server
-    Static --> CF
-    Server --> CF
+    Static --> Wrangler
+    Wrangler --> CF
 ```
 
 ---
@@ -46,7 +45,6 @@ graph TD
 | Technology             | Version / Spec                  | Purpose                                                              |
 | :--------------------- | :------------------------------ | :------------------------------------------------------------------- |
 | **Astro**              | `^7.3.5`                        | Static site generation and web framework                             |
-| **Cloudflare Adapter** | `@astrojs/cloudflare` `^14.3.3` | Cloudflare Workers/Pages edge deployment target                      |
 | **Wrangler**           | `^4.143.0`                      | Cloudflare CLI for local worker emulation and deployments            |
 | **Tailwind CSS**       | `^4.3.3`                        | Utility-first styling via `@tailwindcss/vite`                        |
 | **TypeScript**         | `^6.0.3`                        | Strict type checking across routes, components, and content schemas  |
@@ -54,7 +52,7 @@ graph TD
 | **React**              | `^19.3.0`                       | `@astrojs/react` integration configured for UI islands when needed   |
 | **Sitemap**            | `src/pages/sitemap.xml.ts`      | Project-owned sitemap generation from routes and content collections |
 | **RSS**                | `@astrojs/rss` `^4.0.19`        | Standards-compliant RSS 2.0 XML generation                           |
-| **Fontsource**         | `@fontsource-variable/inter`    | Self-hosted Inter variable font via Astro font provider              |
+| **Fontsource**         | `fontProviders.fontsource()`    | Self-hosted Inter variable font assets via Astro's font provider     |
 
 ---
 
@@ -71,10 +69,10 @@ graph TD
 │   ├── 05-styling-and-theming.md
 │   └── 06-deployment-and-operations.md
 ├── public/                     # Public static files served at root
+│   ├── apple-touch-icon.png
 │   ├── favicon.ico
 │   ├── favicon.svg
-│   ├── robots.txt
-│   └── satyatulasijalandharch.png
+│   └── robots.txt
 ├── src/
 │   ├── assets/                 # Processed media assets
 │   │   └── images/             # Profile portraits and illustrations
@@ -135,43 +133,35 @@ TypeScript path aliases are configured in `tsconfig.json` and resolve seamlessly
 
 ```javascript
 import { defineConfig, fontProviders } from "astro/config";
-import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
+import markdoc from "@astrojs/markdoc";
+import keystatic from "@keystatic/astro";
 import tailwindcss from "@tailwindcss/vite";
 
+const isDev = process.argv.includes("dev");
+
 export default defineConfig({
-  site: "https://stjch.in",
   trailingSlash: "never",
-  adapter: cloudflare(),
-  integrations: [react()],
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  prefetch: {
-    prefetchAll: true,
-  },
+  integrations: [react(), markdoc(), ...(isDev ? [keystatic()] : [])],
+  site: "https://stjch.in",
   session: false,
-  fonts: [
-    {
-      name: "Inter",
-      provider: fontProviders.fontsource(),
-      css: [
-        {
-          src: "@fontsource-variable/inter/index.css",
-        },
-      ],
-      fallback: "sans-serif",
-    },
-  ],
+  prefetch: { prefetchAll: true },
+  vite: { plugins: [tailwindcss()] },
+  fonts: [{
+    provider: fontProviders.fontsource(),
+    name: "Inter",
+    cssVariable: "--font-sans",
+  }],
 });
 ```
 
 ### Highlights:
 
-- `adapter: cloudflare()`: Enables deployment to Cloudflare runtime.
+- Astro's default `output: "static"` prerenders the site into `./dist`; no Astro Cloudflare adapter or SSR runtime is configured.
+- Wrangler publishes `./dist` through Cloudflare Workers Static Assets.
 - `trailingSlash: 'never'`: Normalizes canonical URLs across all pages.
 - `prefetchAll: true`: Accelerates client navigation by automatically prefetching links.
-- `src/pages/sitemap.xml.ts`: Generates `/sitemap.xml` from static routes and content collections.
+- `src/pages/sitemap.xml.ts`: Generates `/sitemap.xml` from static routes and content collections; generated canonicals use `https://stjch.in`.
 - `session: false`: Explicitly disables session middleware for lean static delivery.
 
 ---

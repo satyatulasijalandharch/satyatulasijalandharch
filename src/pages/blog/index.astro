@@ -56,12 +56,14 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
                                 <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
                                     {dateStr}
                                 </span>
-                                <a
-                                    href={`/blog/${post.id}`}
-                                    class="sm:col-span-6 font-medium text-text-primary hover:underline"
-                                >
-                                    {post.data.title}
-                                </a>
+                                <h2 class="sm:col-span-6 font-medium text-text-primary">
+                                    <a
+                                        href={`/blog/${post.id}`}
+                                        class="hover:underline"
+                                    >
+                                        {post.data.title}
+                                    </a>
+                                </h2>
                                 <span class="text-xs text-text-secondary sm:col-span-2">
                                     {post.data.topic}
                                 </span>

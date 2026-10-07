@@ -8,6 +8,12 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Validation
+
+- Run `npm run check` for Astro and TypeScript diagnostics.
+- Run `npm run build` to verify the static production output in `dist/`.
+- The deployment workflow runs both commands before publishing.
+
 ## Documentation
 
 Project documentation is in `docs/` (index: `docs/README.md`). Always update the corresponding documentation files in `docs/` whenever making modifications to project structure, features, schemas, components, or configurations.

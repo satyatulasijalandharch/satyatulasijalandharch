@@ -20,9 +20,11 @@ const metrics = [
 ];
 ---
 
-<div
+<section
+    aria-labelledby="impact-metrics-heading"
     class="pt-6 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 divide-y sm:divide-y-0 divide-border"
 >
+    <h2 id="impact-metrics-heading" class="sr-only">Impact metrics</h2>
     {
         metrics.map((item) => (
             <MetricItem
@@ -32,4 +34,4 @@ const metrics = [
             />
         ))
     }
-</div>
+</section>
