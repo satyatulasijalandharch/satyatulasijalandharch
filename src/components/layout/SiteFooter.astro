@@ -8,12 +8,9 @@ const contactInfo = {
     role: "Cloud Engineer",
     location: "Karnataka, IN",
     email: "satyatulasijalandharch2@gmail.com",
-    phone: "+91 9110458836",
     linkedinUsername: "satyatulasijalandharch",
     githubUsername: "satyatulasijalandharch",
 };
-
-const phoneTel = `tel:${contactInfo.phone.replace(/\s+/g, "")}`;
 
 const socials = [
     {
@@ -49,13 +46,6 @@ const socials = [
                 >
                     {contactInfo.email}
                 </a>
-                <span class="mx-1 text-text-muted">·</span>
-                <a
-                    href={phoneTel}
-                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline"
-                >
-                    {contactInfo.phone}
-                </a>
             </p>
         </div>
 
@@ -72,12 +62,6 @@ const socials = [
                     class="hover:text-text-primary transition-colors underline-offset-4 hover:underline break-all"
                 >
                     {contactInfo.email}
-                </a>
-                <a
-                    href={phoneTel}
-                    class="hover:text-text-primary transition-colors underline-offset-4 hover:underline"
-                >
-                    {contactInfo.phone}
                 </a>
             </div>
 

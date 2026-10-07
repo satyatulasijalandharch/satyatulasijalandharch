@@ -79,9 +79,9 @@ The outer HTML document shell for every route on the site.
 
 ### `SiteFooter.astro`
 
-- **Purpose**: Site footer with direct contact options and external profiles.
+- **Purpose**: Site footer with email and external profiles.
 - **Features**:
-  - Direct communication actions: Email (`mailto:`) and Phone (`tel:`).
+  - Email contact action (`mailto:`); no phone number is published on the site.
   - Social profiles: GitHub, LinkedIn, RSS link.
   - Interactive "Back to top" button with smooth window scrolling.
 
