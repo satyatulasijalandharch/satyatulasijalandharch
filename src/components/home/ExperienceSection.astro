@@ -1,9 +1,9 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import ResumeButton from "@components/ResumeButton.astro";
+import type { ExperienceEntry } from "@types";
+import ResumeButton from "@components/common/ResumeButton.astro";
 
 interface Props {
-    experience: CollectionEntry<"experience">[];
+    experience: ExperienceEntry[];
 }
 
 const { experience } = Astro.props;

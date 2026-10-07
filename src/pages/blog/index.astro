@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
-import { getCollection } from "astro:content";
+import BlogPostRow from "@components/blog/BlogPostRow.astro";
+import { getSortedPosts } from "@lib/collections";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = await getSortedPosts();
 ---
 
 <BaseLayout
@@ -35,34 +34,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
                         No articles published yet.
                     </div>
                 ) : (
-                    posts.map((post) => {
-                        const dateStr = new Intl.DateTimeFormat("en-US", {
-                            year: "numeric",
-                            month: "short",
-                        }).format(post.data.pubDate);
-
-                        return (
-                            <article class="grid grid-cols-1 sm:grid-cols-12 py-4 border-b border-border text-sm gap-2 sm:gap-0 items-baseline">
-                                <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
-                                    {dateStr}
-                                </span>
-                                <h2 class="sm:col-span-6 font-medium text-text-primary">
-                                    <a
-                                        href={`/blog/${post.id}`}
-                                        class="hover:underline"
-                                    >
-                                        {post.data.title}
-                                    </a>
-                                </h2>
-                                <span class="text-xs text-text-secondary sm:col-span-2">
-                                    {post.data.topic}
-                                </span>
-                                <span class="text-xs text-text-muted sm:col-span-2 sm:text-right tabular-nums">
-                                    {post.data.readTime} &rarr;
-                                </span>
-                            </article>
-                        );
-                    })
+                    posts.map((post) => <BlogPostRow post={post} />)
                 )
             }
         </div>

@@ -50,7 +50,7 @@ graph TD
 | **TypeScript**         | `^6.0.3`                        | Strict type checking across routes, components, and content schemas  |
 | **Node.js types**      | `@types/node` `^26.6.4`         | Type definitions for Node globals used in Astro configuration        |
 | **React**              | `^19.3.0`                       | `@astrojs/react` integration configured for UI islands when needed   |
-| **Sitemap**            | `src/pages/sitemap.xml.ts`      | Project-owned sitemap generation from routes and content collections |
+| **Sitemap**            | `@astrojs/sitemap`              | Automated standard XML sitemap index generation                      |
 | **RSS**                | `@astrojs/rss` `^4.0.19`        | Standards-compliant RSS 2.0 XML generation                           |
 | **Fontsource**         | `fontProviders.fontsource()`    | Self-hosted Inter variable font assets via Astro's font provider     |
 
@@ -78,21 +78,21 @@ graph TD
 │   │   └── images/             # Profile portraits and illustrations
 │   ├── components/             # Reusable Astro UI components
 │   │   ├── about/              # About page modular items (skills, academic)
+│   │   ├── blog/               # Blog item components (BlogPostRow)
+│   │   ├── certs/              # Cert list components (CertTable)
+│   │   ├── common/             # Cross-cutting UI components (CertCard, Portrait, ProjectCard, ResumeButton)
 │   │   ├── home/               # Homepage sections (hero, metrics, work, posts)
-│   │   ├── layout/             # Container, SiteHeader, SiteFooter
-│   │   ├── CertCard.astro      # Certification row card
-│   │   ├── Portrait.astro      # Optimized profile image wrapper
-│   │   ├── ProjectCard.astro   # Work case study card
-│   │   ├── ResumeButton.astro  # Configurable resume button
-│   │   ├── ThemeProvider.astro # FOUC-prevention head script
-│   │   └── ThemeToggle.astro   # Tri-state theme switcher button
+│   │   ├── layout/             # Container, SiteHeader, SiteFooter, PageHeader
+│   │   └── theme/              # Theme system (ThemeProvider, ThemeToggle)
 │   ├── content/                # Content source files
 │   │   ├── blog/               # Technical blog posts in Markdown
-│   │   ├── certs/              # certs.json
-│   │   ├── experience/         # experience.json
+│   │   ├── certs/              # Certifications JSON
+│   │   ├── experience/         # Experience JSON
 │   │   └── work/               # Featured work case studies in Markdown
+│   ├── data/                   # Static structured data (competencies, publications)
 │   ├── layouts/
 │   │   └── BaseLayout.astro    # Common document layout with metadata
+│   ├── lib/                    # Shared utilities (dates, schemas, collections)
 │   ├── pages/                  # Route entry points
 │   │   ├── blog/               # /blog and /blog/[id]
 │   │   ├── work/               # /work and /work/[id]
@@ -103,6 +103,7 @@ graph TD
 │   │   └── rss.xml.ts          # RSS feed endpoint
 │   ├── styles/
 │   │   └── global.css          # Tailwind imports, design tokens, custom variant
+│   ├── types/                  # Shared TypeScript type definitions
 │   └── content.config.ts       # Astro Content Layer definitions and schemas
 ├── astro.config.mjs            # Astro project configuration
 ├── package.json                # Dependencies and npm scripts
@@ -117,13 +118,17 @@ graph TD
 
 TypeScript path aliases are configured in `tsconfig.json` and resolve seamlessly in Vite and Astro:
 
-| Alias           | Target Path        | Usage Example                                              |
-| :-------------- | :----------------- | :--------------------------------------------------------- |
-| `@components/*` | `src/components/*` | `import ProjectCard from "@components/ProjectCard.astro";` |
-| `@layouts/*`    | `src/layouts/*`    | `import BaseLayout from "@layouts/BaseLayout.astro";`      |
-| `@assets/*`     | `src/assets/*`     | `import profileImage from "@assets/images/profile.png";`   |
-| `@styles/*`     | `src/styles/*`     | `import "@styles/global.css";`                             |
-| `@content/*`    | `src/content/*`    | `import certsData from "@content/certs/certs.json";`       |
+| Alias           | Target Path        | Usage Example                                                     |
+| :-------------- | :----------------- | :---------------------------------------------------------------- |
+| `@components/*` | `src/components/*` | `import ProjectCard from "@components/common/ProjectCard.astro";` |
+| `@layouts/*`    | `src/layouts/*`    | `import BaseLayout from "@layouts/BaseLayout.astro";`             |
+| `@assets/*`     | `src/assets/*`     | `import profileImage from "@assets/images/profile.png";`          |
+| `@styles/*`     | `src/styles/*`     | `import "@styles/global.css";`                                    |
+| `@lib/*`        | `src/lib/*`        | `import { getSortedPosts } from "@lib/collections";`              |
+| `@types`        | `src/types/index.ts`| `import type { BlogEntry } from "@types";`                       |
+| `@types/*`      | `src/types/*`      | `import type { BlogEntry } from "@types";`                        |
+| `@data/*`       | `src/data/*`       | `import skills from "@data/competencies.json";`                   |
+| `@content/*`    | `src/content/*`    | `import certsData from "@content/certs/certs.json";`              |
 
 ---
 
@@ -136,13 +141,21 @@ import { defineConfig, fontProviders } from "astro/config";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 const isDev = process.argv.includes("dev");
 
 export default defineConfig({
   trailingSlash: "never",
-  integrations: [react(), markdoc(), ...(isDev ? [keystatic()] : [])],
+  integrations: [
+    react(),
+    markdoc(),
+    sitemap({
+      filter: (page) => !page.includes('/keystatic'),
+    }),
+    ...(isDev ? [keystatic()] : []),
+  ],
   site: "https://stjch.in",
   session: false,
   prefetch: { prefetchAll: true },
@@ -161,7 +174,7 @@ export default defineConfig({
 - Wrangler publishes `./dist` through Cloudflare Workers Static Assets.
 - `trailingSlash: 'never'`: Normalizes canonical URLs across all pages.
 - `prefetchAll: true`: Accelerates client navigation by automatically prefetching links.
-- `src/pages/sitemap.xml.ts`: Generates `/sitemap.xml` from static routes and content collections; generated canonicals use `https://stjch.in`.
+- `@astrojs/sitemap`: Generates `/sitemap-index.xml` automatically from prerendered static routes; canonicals use `https://stjch.in`.
 - `session: false`: Explicitly disables session middleware for lean static delivery.
 
 ---

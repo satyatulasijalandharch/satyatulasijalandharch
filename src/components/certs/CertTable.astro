@@ -1,0 +1,31 @@
+---
+import type { CertEntry } from "@types";
+import CertCard from "@components/common/CertCard.astro";
+
+interface Props {
+    certs: CertEntry[];
+}
+
+const { certs } = Astro.props;
+---
+
+<div class="border-t border-border">
+    <div
+        class="hidden sm:grid sm:grid-cols-12 py-2 text-xs font-semibold uppercase tracking-wider text-text-muted border-b border-border tabular-nums"
+    >
+        <span class="sm:col-span-2">Date</span>
+        <span class="sm:col-span-6">Credential &amp; Competencies</span>
+        <span class="sm:col-span-2">Issuer</span>
+        <span class="sm:col-span-2 text-right">Verify</span>
+    </div>
+
+    {
+        certs.length === 0 ? (
+            <div class="py-8 text-center text-text-muted text-sm border-b border-border">
+                No certifications listed yet.
+            </div>
+        ) : (
+            certs.map((cert) => <CertCard cert={cert} />)
+        )
+    }
+</div>

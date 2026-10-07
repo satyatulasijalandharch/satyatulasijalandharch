@@ -1,12 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
-import { getCollection } from "astro:content";
-import ProjectCard from "@components/ProjectCard.astro";
+import { getSortedWork } from "@lib/collections";
+import ProjectCard from "@components/common/ProjectCard.astro";
 
-const works = (await getCollection("work")).sort(
-    (a, b) => a.data.order - b.data.order,
-);
+const works = await getSortedWork();
 ---
 
 <BaseLayout

@@ -1,9 +1,9 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import CertCard from "@components/CertCard.astro";
+import type { CertEntry } from "@types";
+import CertCard from "@components/common/CertCard.astro";
 
 interface Props {
-    certs: CollectionEntry<"certs">[];
+    certs: CertEntry[];
 }
 
 const { certs } = Astro.props;

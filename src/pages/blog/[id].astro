@@ -2,6 +2,9 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
 import { getCollection, getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
+import { formatDate } from "@lib/dates";
+import { buildBlogPostSchema } from "@lib/schemas";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -20,36 +23,21 @@ if (!post) {
 
 const { Content } = await render(post);
 
-const formattedDate = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-}).format(post.data.pubDate);
-
+const formattedDate = formatDate(post.data.pubDate);
 const formattedUpdatedDate = post.data.updatedDate
-    ? new Intl.DateTimeFormat("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-      }).format(post.data.updatedDate)
+    ? formatDate(post.data.updatedDate)
     : undefined;
 
 const postURL = new URL(`/blog/${post.id}`, Astro.site ?? Astro.url.origin)
     .href;
-const blogPostingSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `${postURL}#blogposting`,
-    mainEntityOfPage: { "@type": "WebPage", "@id": postURL },
-    headline: post.data.title,
+const blogPostingSchema = buildBlogPostSchema({
+    postUrl: postURL,
+    title: post.data.title,
     description: post.data.description,
-    datePublished: post.data.pubDate.toISOString(),
-    ...(post.data.updatedDate && {
-        dateModified: post.data.updatedDate.toISOString(),
-    }),
-    articleSection: post.data.topic,
-    inLanguage: "en",
-};
+    pubDate: post.data.pubDate,
+    updatedDate: post.data.updatedDate,
+    topic: post.data.topic,
+});
 ---
 
 <BaseLayout
@@ -93,8 +81,20 @@ const blogPostingSchema = {
             </div>
         </PageHeader>
 
+        {
+            post.data.cover && (
+                <div class="border border-border p-1 bg-surface-subtle">
+                    <Image
+                        src={post.data.cover}
+                        alt={post.data.title}
+                        class="w-full h-auto aspect-video object-cover"
+                    />
+                </div>
+            )
+        }
+
         <div
-            class="prose prose-neutral dark:prose-invert max-w-none text-text-secondary leading-relaxed space-y-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-text-primary [&_h2]:pt-4 [&_p]:leading-relaxed [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1"
+            class="prose prose-neutral dark:prose-invert max-w-none text-text-secondary leading-relaxed space-y-6 prose-headings:text-text-primary prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-text-primary prose-a:underline-offset-4 hover:prose-a:underline prose-code:text-text-primary prose-pre:border prose-pre:border-border prose-blockquote:border-border prose-blockquote:text-text-secondary prose-strong:text-text-primary"
         >
             <Content />
         </div>

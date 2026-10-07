@@ -1,62 +1,24 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
-import Portrait from "@components/Portrait.astro";
+import Portrait from "@components/common/Portrait.astro";
 import AcademicRow from "@components/about/AcademicRow.astro";
 import SkillCard from "@components/about/SkillCard.astro";
-
-const skills = [
-    {
-        title: "Cloud Platforms",
-        description:
-            "AWS (EC2, ECS, Lambda, Route 53, CloudWatch, Bedrock), OCI, Cloudflare, Supabase, Vercel",
-    },
-    {
-        title: "Infrastructure as Code",
-        description:
-            "Terraform, AWS CDK, Docker, DevContainers, Reusable GitHub Action Workflows",
-    },
-    {
-        title: "CI/CD & GitOps",
-        description:
-            "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms",
-    },
-    {
-        title: "Security & Governance",
-        description:
-            "AWS Organizations, IAM Identity Center (SSO), Least Privilege RBAC, Secret Scanning & Key Rotation",
-    },
-];
-
-const publicationItems = [
-    {
-        title: "Automated DevOps Pipeline For Deploying MERN Stack Web Application in Kubernetes on AWS",
-        date: "May 2024",
-        description: "Published Research Paper • IJRAR",
-        url: "https://ijrar.org/viewfull.php?p_id=IJRAR24B2826",
-    },
-];
+import { buildProfileSchema } from "@lib/schemas";
+import skills from "@data/competencies.json";
+import publicationItems from "@data/publications.json";
 
 const aboutURL = new URL("/about", Astro.site ?? Astro.url.origin).href;
-const profileSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "@id": `${aboutURL}#profile`,
-    url: aboutURL,
-    inLanguage: "en",
-    mainEntity: {
-        "@type": "Person",
-        "@id": `${aboutURL}#person`,
-        name: "Satya Tulasi Jalandhar C H",
-        url: aboutURL,
-        jobTitle: "Cloud & DevOps Engineer",
-        sameAs: [
-            "https://www.linkedin.com/in/satyatulasijalandharch",
-            "https://github.com/satyatulasijalandharch",
-        ],
-        knowsAbout: skills.map((skill) => skill.title),
-    },
-};
+const profileSchema = buildProfileSchema({
+    profileUrl: aboutURL,
+    name: "Satya Tulasi Jalandhar C H",
+    jobTitle: "Cloud & DevOps Engineer",
+    sameAs: [
+        "https://www.linkedin.com/in/satyatulasijalandharch",
+        "https://github.com/satyatulasijalandharch",
+    ],
+    knowsAbout: skills.map((skill) => skill.title),
+});
 ---
 
 <BaseLayout

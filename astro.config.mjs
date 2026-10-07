@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 import keystatic from '@keystatic/astro';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 const isDev = process.argv.includes('dev');
@@ -13,6 +14,9 @@ export default defineConfig({
   integrations: [
     react(),
     markdoc(),
+    sitemap({
+      filter: (page) => !page.includes('/keystatic'),
+    }),
     ...(isDev ? [keystatic()] : []),
   ],
   site: "https://stjch.in",

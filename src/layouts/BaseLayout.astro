@@ -2,11 +2,12 @@
 import "../styles/global.css";
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
-import ThemeProvider from "@components/ThemeProvider.astro";
+import ThemeProvider from "@components/theme/ThemeProvider.astro";
 import SiteHeader from "@components/layout/SiteHeader.astro";
 import SiteFooter from "@components/layout/SiteFooter.astro";
 import Container from "@components/layout/Container.astro";
 import defaultProfileImage from "@assets/images/profile.png";
+import { serializeJsonLd, buildWebsiteSchema } from "@lib/schemas";
 
 interface Props {
 	title?: string;
@@ -57,16 +58,9 @@ const resolvedImageSrc =
 			).src;
 
 const ogImageUrl = new URL(resolvedImageSrc, siteOrigin).href;
-const serializeJsonLd = (schema: Record<string, unknown>) =>
-	JSON.stringify(schema).replace(/</g, "\\u003c");
-const websiteJsonLd = serializeJsonLd({
-	"@context": "https://schema.org",
-	"@type": "WebSite",
-	"@id": new URL("#website", siteURL).href,
-	url: siteURL,
-	name: siteName,
-	inLanguage: "en",
-});
+const websiteJsonLd = serializeJsonLd(
+	buildWebsiteSchema({ siteUrl: siteURL, siteName }),
+);
 const pageJsonLd = jsonLd ? serializeJsonLd(jsonLd) : undefined;
 ---
 

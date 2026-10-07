@@ -1,6 +1,11 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
+import {
+  getFeaturedWork,
+  getSortedPosts,
+  getOrderedCerts,
+  getSortedExperience,
+} from "@lib/collections";
 import HeroSection from "@components/home/HeroSection.astro";
 import ImpactMetrics from "@components/home/ImpactMetrics.astro";
 import FeaturedWork from "@components/home/FeaturedWork.astro";
@@ -8,21 +13,10 @@ import ExperienceSection from "@components/home/ExperienceSection.astro";
 import RecentPosts from "@components/home/RecentPosts.astro";
 import CertsSummary from "@components/home/CertsSummary.astro";
 
-const featuredWorks = (
-  await getCollection("work", ({ data }) => data.featured)
-).sort((a, b) => a.data.order - b.data.order);
-
-const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-const certs = (await getCollection("certs"))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 2);
-
-const experience = (await getCollection("experience")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const featuredWorks = await getFeaturedWork();
+const recentPosts = await getSortedPosts({ limit: 3 });
+const certs = await getOrderedCerts(2);
+const experience = await getSortedExperience();
 ---
 
 <BaseLayout

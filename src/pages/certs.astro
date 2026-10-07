@@ -1,20 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
-import { getCollection } from "astro:content";
-import CertCard from "@components/CertCard.astro";
+import CertTable from "@components/certs/CertTable.astro";
+import { getSortedCerts } from "@lib/collections";
 
-const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
-const issueDateOrder = (issueDate: string) => {
-  const [month, year] = issueDate.split(" ");
-  return Number(year) * 12 + months.indexOf(month);
-};
-
-const certs = (await getCollection("certs")).sort(
-  (a, b) =>
-    issueDateOrder(b.data.issueDate) - issueDateOrder(a.data.issueDate) ||
-    a.data.order - b.data.order,
-);
+const certs = await getSortedCerts();
 ---
 
 <BaseLayout
@@ -28,17 +18,6 @@ const certs = (await getCollection("certs")).sort(
       description="Externally verifiable credentials across cloud platforms, declarative infrastructure, and continuous delivery systems."
     />
 
-    <div class="border-t border-border">
-      <div
-        class="hidden sm:grid sm:grid-cols-12 py-2 text-xs font-semibold uppercase tracking-wider text-text-muted border-b border-border tabular-nums"
-      >
-        <span class="sm:col-span-2">Date</span>
-        <span class="sm:col-span-6">Credential &amp; Competencies</span>
-        <span class="sm:col-span-2">Issuer</span>
-        <span class="sm:col-span-2 text-right">Verify</span>
-      </div>
-
-      {certs.map((cert) => <CertCard cert={cert} />)}
-    </div>
+    <CertTable certs={certs} />
   </div>
 </BaseLayout>
