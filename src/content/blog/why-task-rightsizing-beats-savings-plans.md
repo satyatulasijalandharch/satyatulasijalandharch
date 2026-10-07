@@ -9,7 +9,7 @@ draft: false
 
 Many engineering teams rush into 1-year or 3-year Compute Savings Plans the moment their AWS monthly invoice starts to rise. While reservations offer guaranteed discounts, committing before auditing workload utilization often means paying for over-provisioned headroom you will never use.
 
-### Typical allocation waste: 35% — 60%
+## Typical allocation waste: 35% — 60%
 
 Observed in development, staging, and unmonitored container tasks.
 

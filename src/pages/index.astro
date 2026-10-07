@@ -30,7 +30,10 @@ const experience = (await getCollection("experience")).sort(
   description="Specialized in AWS platforms, declarative IaC with Terraform & AWS CDK, Docker containerization, and zero-downtime CI/CD automation."
 >
   <div class="space-y-12 sm:space-y-20">
-    <section class="border-b border-border pb-10 sm:pb-16 space-y-6">
+    <section
+      aria-labelledby="site-identity"
+      class="border-b border-border pb-10 sm:pb-16 space-y-6"
+    >
       <HeroSection />
       <ImpactMetrics />
     </section>

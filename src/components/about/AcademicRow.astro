@@ -9,7 +9,7 @@ const { title, date = "" } = Astro.props as Props;
 
 <div class="space-y-1">
     <div class="flex justify-between items-baseline">
-        <span class="font-medium text-text-primary">{title}</span>
+        <h3 class="font-medium text-text-primary">{title}</h3>
         {
             date && (
                 <span class="text-xs text-text-muted tabular-nums">{date}</span>

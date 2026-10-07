@@ -22,7 +22,7 @@ The documentation is organized into modular guides covering every layer of the a
    Tailwind CSS v4 `@theme inline` design tokens, Fontsource Inter configuration, and the zero-FOUC tri-state (`auto`/`light`/`dark`) theme engine.
 
 6. [Deployment and Operations](./06-deployment-and-operations.md)  
-   Cloudflare Workers/Pages deployment architecture, `wrangler.jsonc` asset bindings, custom domains, CI/CD, and npm operational scripts.
+   Cloudflare Workers Static Assets deployment, `wrangler.jsonc` bindings, apex routing, CI/CD, and npm scripts.
 
 ---
 
@@ -30,14 +30,13 @@ The documentation is organized into modular guides covering every layer of the a
 
 | Topic               | Primary File(s)                                           | Description                                                      |
 | :------------------ | :-------------------------------------------------------- | :--------------------------------------------------------------- |
-| **Site Config**     | `astro.config.mjs`                                        | Astro 7, Cloudflare adapter, Tailwind v4, Fontsource, redirects  |
-| **Edge Config**     | `wrangler.jsonc`                                          | Cloudflare Worker runtime, `./dist` asset binding, observability |
-| **Content Schemas** | `src/content.config.ts`                                   | Zod schemas and `glob`/`file` collection loaders                 |
+| **Site Config**     | `astro.config.mjs`                                        | Astro 7 static output, React/Markdoc, dev-only Keystatic, Tailwind v4, Fontsource |
+| **Edge Config**     | `wrangler.jsonc`                                          | Cloudflare Workers Static Assets, `./dist`, apex custom domain   |
+| **Content Schemas** | `src/content.config.ts`                                   | Zod schemas and `glob()` collection loaders                       |
 | **Theme Engine**    | `src/components/ThemeProvider.astro`, `ThemeToggle.astro` | Tri-state theme switcher with inline FOUC prevention             |
 | **Global Styles**   | `src/styles/global.css`                                   | Tailwind v4 import, theme color variables, custom dark variant   |
-| **Main Layout**     | `src/layouts/BaseLayout.astro`                            | HTML shell, Open Graph / SEO metadata, header/footer wrapper     |
+| **Main Layout**     | `src/layouts/BaseLayout.astro`                            | HTML shell, canonical/social metadata, JSON-LD, accessible site frame |
 
----
 
 ## Development & Build Commands
 
@@ -54,9 +53,9 @@ npm run check
 # Build production bundle
 npm run build
 
-# Build and preview with local Cloudflare Worker emulation
-npm run cdev
-
-# Build and deploy directly to Cloudflare
-npm run cdeploy
+# Preview the built Astro site
+npm run preview
+# Preview/deploy Cloudflare Workers Static Assets (build first)
+npx wrangler dev
+npx wrangler deploy
 ```

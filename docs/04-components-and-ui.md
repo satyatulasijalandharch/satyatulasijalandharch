@@ -44,14 +44,18 @@ The outer HTML document shell for every route on the site.
   - `title: string` (Page title)
   - `description?: string` (Meta description)
   - `image?: string` (Open Graph social image)
+  - `imageAlt?: string` (Social image alternative text)
   - `article?: boolean` (Sets `og:type` to article when true)
+  - `publishedTime?: Date`, `modifiedTime?: Date`, `articleSection?: string` (Article metadata)
+  - `jsonLd?: Record<string, unknown>` (Page-specific structured data)
   - `noindex?: boolean` (Adds `robots: noindex, nofollow`)
 - **Key Responsibilities**:
   - Injects `ThemeProvider.astro` into `<head>` to prevent FOUC.
   - Generates canonical URL using `Astro.site` and `Astro.url.pathname`.
-  - Emits Open Graph (`og:title`, `og:image`, `og:description`) and Twitter Card tags.
+  - Emits Open Graph/Twitter metadata including image alt text and article dates where applicable.
+  - Emits `WebSite` JSON-LD on every page, plus page-specific `ProfilePage`/`Person`, `BlogPosting`, or `CreativeWork` data when provided.
   - Provides RSS auto-discovery link: `<link rel="alternate" type="application/rss+xml" href="/rss.xml" />`.
-  - Wraps page body in `SiteHeader`, `Container`, `<main>`, and `SiteFooter`.
+  - Provides a keyboard skip link and visible focus outline; wraps page body in `SiteHeader`, `Container`, `<main>`, and `SiteFooter`.
 
 ---
 
@@ -75,9 +79,9 @@ The outer HTML document shell for every route on the site.
 
 ### `SiteFooter.astro`
 
-- **Purpose**: Site footer with direct contact options and external profiles.
+- **Purpose**: Site footer with email and external profiles.
 - **Features**:
-  - Direct communication actions: Email (`mailto:`) and Phone (`tel:`).
+  - Email contact action (`mailto:`); no phone number is published on the site.
   - Social profiles: GitHub, LinkedIn, RSS link.
   - Interactive "Back to top" button with smooth window scrolling.
 
@@ -133,7 +137,7 @@ The outer HTML document shell for every route on the site.
 
 | Component                 | Responsibility                                                                                         | Queried Content         |
 | :------------------------ | :----------------------------------------------------------------------------------------------------- | :---------------------- |
-| `HeroSection.astro`       | Status badge ("Available for Roles"), headline, bio elevator pitch, `Portrait` image, and CTA actions. | Static props            |
+| `HeroSection.astro`       | Status badge ("Available for Roles"), page H1, bio elevator pitch, `Portrait` image, and CTA actions. | Static props            |
 | `ImpactMetrics.astro`     | 3-column metric banner highlighting business outcomes using `MetricItem`.                              | Static props            |
 | `MetricItem.astro`        | Individual numeric stat with tabular numbers and descriptive label.                                    | Static props            |
 | `FeaturedWork.astro`      | Grid of featured project case studies using `ProjectCard`.                                             | `work` collection       |

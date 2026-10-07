@@ -11,23 +11,23 @@ const { experience } = Astro.props;
 
 <section class="space-y-6">
     <div class="flex items-center justify-between border-b border-border pb-3">
-        <div class="text-xs uppercase tracking-wider text-text-muted">
+        <h2 class="text-xs uppercase tracking-wider text-text-muted">
             EXPERIENCE &amp; CAREER TIMELINE
-        </div>
+        </h2>
         <ResumeButton label="Full Resume" variant="link" />
     </div>
 
     <div class="border-t border-border">
         {
             experience.map((exp) => (
-                <div class="grid grid-cols-1 md:grid-cols-12 py-5 border-b border-border text-sm gap-2 md:gap-4 items-baseline">
+                <article class="grid grid-cols-1 md:grid-cols-12 py-5 border-b border-border text-sm gap-2 md:gap-4 items-baseline">
                     <span class="md:col-span-2 text-xs text-text-muted tabular-nums font-medium">
                         {exp.data.period}
                     </span>
                     <div class="md:col-span-4">
-                        <div class="font-semibold text-text-primary">
+                        <h3 class="font-semibold text-text-primary">
                             {exp.data.role}
-                        </div>
+                        </h3>
                         <div class="text-xs text-text-secondary">
                             {exp.data.company}
                         </div>
@@ -40,7 +40,7 @@ const { experience } = Astro.props;
                             Stack: {exp.data.stack.join(" · ")}
                         </div>
                     </div>
-                </div>
+                </article>
             ))
         }
     </div>

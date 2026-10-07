@@ -10,9 +10,9 @@ const { posts } = Astro.props;
 
 <section class="space-y-6">
     <div class="flex items-center justify-between border-b border-border pb-3">
-        <div class="text-xs uppercase tracking-wider text-text-muted">
+        <h2 class="text-xs uppercase tracking-wider text-text-muted">
             RECENT WRITING
-        </div>
+        </h2>
         <a
             href="/blog"
             class="text-xs font-medium text-text-primary hover:underline"
@@ -34,12 +34,14 @@ const { posts } = Astro.props;
                         <span class="text-xs text-text-muted sm:col-span-2 tabular-nums">
                             {dateStr}
                         </span>
-                        <a
-                            href={`/blog/${post.id}`}
-                            class="sm:col-span-6 font-medium text-text-primary hover:underline"
-                        >
-                            {post.data.title}
-                        </a>
+                        <h3 class="sm:col-span-6 font-medium text-text-primary">
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="hover:underline"
+                            >
+                                {post.data.title}
+                            </a>
+                        </h3>
                         <span class="text-xs text-text-secondary sm:col-span-2">
                             {post.data.topic}
                         </span>

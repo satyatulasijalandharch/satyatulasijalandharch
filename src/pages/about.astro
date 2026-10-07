@@ -38,13 +38,36 @@ const academicItems = [
         title: "Automated DevOps Pipeline For Deploying MERN Stack Web Application in Kubernetes on AWS",
         date: "May 2024",
         description: "Published Research Paper • IJRAR",
+        url: "https://ijrar.org/viewfull.php?p_id=IJRAR24B2826",
     },
 ];
+
+const aboutURL = new URL("/about", Astro.site ?? Astro.url.origin).href;
+const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${aboutURL}#profile`,
+    url: aboutURL,
+    inLanguage: "en",
+    mainEntity: {
+        "@type": "Person",
+        "@id": `${aboutURL}#person`,
+        name: "Satya Tulasi Jalandhar C H",
+        url: aboutURL,
+        jobTitle: "Cloud & DevOps Engineer",
+        sameAs: [
+            "https://www.linkedin.com/in/satyatulasijalandharch",
+            "https://github.com/satyatulasijalandharch",
+        ],
+        knowsAbout: skills.map((skill) => skill.title),
+    },
+};
 ---
 
 <BaseLayout
     title="About — Satya Tulasi Jalandhar C H"
     description="Background, career timeline, operating principles, and engineering philosophy of Satya Tulasi Jalandhar C H."
+    jsonLd={profileSchema}
 >
     <div class="space-y-12 max-w-3xl mx-auto">
         <header class="border-b border-border pb-8 space-y-4">
@@ -119,6 +142,19 @@ const academicItems = [
                         >
                             <AcademicRow title={item.title} date={item.date}>
                                 {item.description}
+                                {item.url && (
+                                    <>
+                                        {" "}
+                                        <a
+                                            href={item.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="font-medium text-text-primary underline underline-offset-2"
+                                        >
+                                            View publication
+                                        </a>
+                                    </>
+                                )}
                             </AcademicRow>
                         </div>
                     ))

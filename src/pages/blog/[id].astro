@@ -24,24 +24,68 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
 }).format(post.data.pubDate);
+
+const formattedUpdatedDate = post.data.updatedDate
+    ? new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+      }).format(post.data.updatedDate)
+    : undefined;
+
+const postURL = new URL(`/blog/${post.id}`, Astro.site ?? Astro.url.origin)
+    .href;
+const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${postURL}#blogposting`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": postURL },
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    ...(post.data.updatedDate && {
+        dateModified: post.data.updatedDate.toISOString(),
+    }),
+    articleSection: post.data.topic,
+    inLanguage: "en",
+};
 ---
 
 <BaseLayout
     title={`${post.data.title} — Engineering Notes`}
     description={post.data.description}
+    article={true}
+    publishedTime={post.data.pubDate}
+    modifiedTime={post.data.updatedDate ?? undefined}
+    articleSection={post.data.topic}
+    jsonLd={blogPostingSchema}
 >
     <article class="max-w-3xl mx-auto space-y-8">
         <header class="border-b border-border pb-6 space-y-3">
             <div
-                class="flex items-center justify-between text-xs text-text-muted tabular-nums"
+                class="flex flex-col gap-1 text-xs text-text-muted tabular-nums sm:flex-row sm:items-center sm:justify-between"
             >
                 <span>{post.data.topic}</span>
-                <div class="flex items-center gap-2">
-                    <time datetime={post.data.pubDate.toISOString()}
-                        >{formattedDate}</time
-                    >
-                    <span>&bull;</span>
-                    <span>{post.data.readTime}</span>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span>
+                        Published
+                        <time datetime={post.data.pubDate.toISOString()}>
+                            {formattedDate}
+                        </time>
+                    </span>
+                    {
+                        post.data.updatedDate && formattedUpdatedDate && (
+                            <span>
+                                Updated
+                                <time
+                                    datetime={post.data.updatedDate.toISOString()}
+                                >
+                                    {formattedUpdatedDate}
+                                </time>
+                            </span>
+                        )
+                    }
+                    <span>{post.data.readTime} read</span>
                 </div>
             </div>
 

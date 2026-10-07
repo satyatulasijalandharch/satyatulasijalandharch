@@ -10,12 +10,12 @@ The application is built as a static Astro site and deployed to **Cloudflare Wor
 graph LR
     Dev[Developer] -->|git push| Build[astro build]
     Build -->|Static output| Dist[./dist Directory]
-    Dist -->|Wrangler deploy| CFAssets[Cloudflare Static Assets]
+    Dist -->|Wrangler deploy| CFAssets[Cloudflare Workers Static Assets]
     CFAssets --> User[Client / Browser]
 ```
 
-- **Static output**: HTML, CSS, JavaScript chunks, optimized images, and sitemaps are built into `./dist`.
-- **No SSR runtime**: The deployment has no Astro Cloudflare adapter or Worker script. Wrangler publishes the static assets directly.
+- **Static output**: HTML, CSS, JavaScript chunks, optimized images, feeds, and sitemap are built into `./dist`.
+- **No Astro SSR runtime**: No Astro Cloudflare adapter is configured. Wrangler serves the built files through Workers Static Assets.
 
 ---
 
@@ -25,7 +25,7 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
 
 ```jsonc
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "satyatulasijalandharch",
   "compatibility_date": "2026-09-26",
   "compatibility_flags": ["global_fetch_strictly_public"],
@@ -34,31 +34,20 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page",
   },
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "invocation_logs": true, "persist": true },
+    "traces": { "enabled": true },
+  },
+  "workers_dev": false,
+  "preview_urls": false,
   "routes": [
     {
       "pattern": "stjch.in",
       "custom_domain": true,
-    },
-    {
-      "pattern": "www.stjch.in",
-      "custom_domain": true,
+      "previews_enabled": true,
     },
   ],
-  "observability": {
-    "enabled": true,
-    "head_sampling_rate": 1,
-    "logs": {
-      "enabled": true,
-      "head_sampling_rate": 1,
-      "invocation_logs": true,
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 1,
-    },
-  },
-  "preview_urls": true,
-  "workers_dev": true,
 }
 ```
 
@@ -68,8 +57,8 @@ The runtime and edge infrastructure are defined in `wrangler.jsonc`:
 - `assets.directory`: Publishes the static site generated in `./dist`.
 - `assets.html_handling: "drop-trailing-slash"`: Matches Astro's `trailingSlash: 'never'` setting.
 - `assets.not_found_handling: "404-page"`: Automatically routes 404 responses to `./dist/404.html`.
-- `routes`: Binds production custom domains `stjch.in` and `www.stjch.in`.
-- `observability`: Full invocation logs and distributed request tracing enabled in Cloudflare dashboard.
+- `routes`: Binds the production apex domain `stjch.in`; `www.stjch.in` is not configured and currently returns 404.
+- `observability`: Invocation logs and traces are enabled in Cloudflare.
 
 ---
 
@@ -101,9 +90,9 @@ npm run dev
 npm run check
 ```
 
-### 3. Cloudflare Deployment
+### 3. Cloudflare Preview and Deployment
 
-The GitHub Actions workflow runs `npm run build`, then deploys the `./dist` assets through Wrangler.
+The GitHub Actions workflow runs `npm ci`, `npm run check`, and `npm run build`. Pull requests publish Wrangler previews; pushes to `main` run `wrangler deploy` for production. For local Workers Static Assets emulation, build first and run `npx wrangler dev`.
 
 ---
 
@@ -117,9 +106,8 @@ Keystatic changes files under `src/content/`. Review and commit those files to p
 
 ## Cloudflare DNS & Custom Domains
 
-The site is provisioned with Cloudflare custom domains:
+The Wrangler config binds the apex custom domain:
 
 - Apex: `stjch.in`
-- Subdomain: `www.stjch.in`
 
-Both routes map to the Cloudflare Worker target. SSL/TLS is handled automatically at Cloudflare edge nodes with HSTS and HTTP/2 + HTTP/3 support.
+The canonical URLs use `https://stjch.in`. The live `www.stjch.in` host currently returns 404. If the `www` hostname should be supported, choose and configure a permanent redirect to the apex at Cloudflare, then verify the redirect and update this document; do not add it as a second indexable host without a redirect.
