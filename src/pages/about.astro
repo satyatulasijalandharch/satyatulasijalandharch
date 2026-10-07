@@ -21,19 +21,13 @@ const skills = [
             "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms",
     },
     {
-        title: "Governance & Tooling",
+        title: "Security & Governance",
         description:
-            "AWS Organizations, IAM Identity Center (SSO), Passbolt, Bitwarden, Claude Code, Jira",
+            "AWS Organizations, IAM Identity Center (SSO), Least Privilege RBAC, Secret Scanning & Key Rotation",
     },
 ];
 
-const academicItems = [
-    {
-        title: "R L Jalappa Institute of Technology",
-        date: "2020 — 2024",
-        description:
-            "Bachelor of Engineering in Computer Science & Engineering • Bengaluru",
-    },
+const publicationItems = [
     {
         title: "Automated DevOps Pipeline For Deploying MERN Stack Web Application in Kubernetes on AWS",
         date: "May 2024",
@@ -128,14 +122,14 @@ const profileSchema = {
 
         <section class="space-y-4 pt-6 border-t border-border text-sm">
             <h2 class="text-xl font-semibold tracking-tight text-text-primary">
-                Academic Background &amp; Publications
+                Research &amp; Publications
             </h2>
             <div class="space-y-3">
                 {
-                    academicItems.map((item, index) => (
+                    publicationItems.map((item, index) => (
                         <div
                             class={
-                                index < academicItems.length - 1
+                                index < publicationItems.length - 1
                                     ? "border-b border-border pb-3"
                                     : ""
                             }
