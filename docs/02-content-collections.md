@@ -14,9 +14,8 @@ src/content/
 │   ├── designing-event-driven-cloud-systems.md
 │   └── why-task-rightsizing-beats-savings-plans.md
 ├── certs/            # glob() -> one JSON file per certification
-│   ├── github-foundations.json
 │   ├── oci-foundations-associate.json
-│   ├── terraform-basics.json
+│   ├── github-foundations.json
 │   └── atlassian-devops-essentials.json
 ├── experience/       # glob() -> one JSON file per role
 │   ├── marumitra-cloud-engineer.json

@@ -63,7 +63,7 @@ The outer HTML document shell for every route on the site.
 
 ### `Container.astro`
 
-- **Purpose**: Restricts max content width to `max-w-5xl` (64rem / 1024px) with responsive horizontal padding (`px-4 sm:px-6 lg:px-8`).
+- **Purpose**: Controls layout width with responsive bounds: `max-w-7xl` on desktop up to `2xl:max-w-screen-2xl` (1536px) on ultra-wide screens, with adaptive horizontal padding (`px-4 sm:px-6 lg:px-8 xl:px-12`).
 - **Styling**: Adds hairline lateral borders (`border-x border-border/80`) to create a consistent vertical frame.
 
 ### `SiteHeader.astro`
