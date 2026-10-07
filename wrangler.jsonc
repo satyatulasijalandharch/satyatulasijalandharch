@@ -19,6 +19,9 @@
 		},
 		"traces": {
 			"enabled": true
+		},
+		"issues": {
+			"enabled": true
 		}
 	},
 	"send_metrics": false,
