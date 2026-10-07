@@ -1,7 +1,7 @@
 ---
 import Container from "./Container.astro";
-import ResumeButton from "@components/ResumeButton.astro";
-import ThemeToggle from "@components/ThemeToggle.astro";
+import ResumeButton from "@components/common/ResumeButton.astro";
+import ThemeToggle from "@components/theme/ThemeToggle.astro";
 
 const pathname = Astro.url.pathname;
 
@@ -33,7 +33,7 @@ const isActive = (href: string) => {
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="primary-navigation"
-        class="hidden order-1 inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-subtle text-text-secondary transition-colors hover:bg-surface hover:text-text-primary md:hidden"
+        class="order-1 inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-subtle text-text-secondary transition-colors hover:bg-surface hover:text-text-primary md:hidden"
       >
         <svg
           data-menu-open-icon

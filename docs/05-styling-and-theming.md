@@ -22,11 +22,12 @@ Styles are imported in `src/styles/global.css`:
 
 ```css
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 ```
 
-The `@custom-variant dark` directive instructs Tailwind v4 to apply `dark:` variant utilities when the `.dark` class is present on `document.documentElement` or any ancestor element.
+The `@custom-variant dark` directive instructs Tailwind v4 to apply `dark:` variant utilities when the `.dark` class is present on `document.documentElement` or any ancestor element. The `@tailwindcss/typography` plugin provides standard `prose` typography classes for rendered Markdoc content.
 
 ---
 

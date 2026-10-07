@@ -15,7 +15,7 @@ This document details all routes, pages, static generation mechanisms, and endpo
 | `src/pages/work/[id].astro`  | `/work/[id]`   | Dynamic Static     | Single `work` entry rendered via `render()`         |
 | `src/pages/404.astro`        | `/404`         | Static             | None (`noindex={true}`)                             |
 | `src/pages/rss.xml.ts`       | `/rss.xml`     | API / XML Endpoint | `blog` collection                                   |
-| `src/pages/sitemap.xml.ts`   | `/sitemap.xml` | API / XML Endpoint | Static routes, published `blog`, and `work` entries |
+| `@astrojs/sitemap`           | `/sitemap-index.xml` | Build Integration | Static routes, published `blog`, and `work` entries |
 
 ---
 
@@ -124,11 +124,11 @@ export async function GET(context: APIContext) {
 }
 ```
 
-### Sitemap (`src/pages/sitemap.xml.ts`)
+### Sitemap (`@astrojs/sitemap`)
 
-Generates a sitemap XML document from the static page routes, published blog posts, and work entries. `public/robots.txt` and the layout sitemap link both point to `/sitemap.xml`.
+Generates standard sitemap index and sub-sitemaps automatically during `astro build`. `public/robots.txt` points to `/sitemap-index.xml`.
 
-The generated sitemap contains canonical apex URLs for the five static index pages, published blog posts, and work entries. It intentionally excludes the noindex 404 page; `lastmod` is omitted because the work collection does not provide a verified modification date.
+The integration discovers all prerendered static routes (filtering out internal CMS routes like `/keystatic`) and generates fully canonical URLs anchored to `https://stjch.in`.
 
 ---
 

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* Enable class-based dark mode — .dark on <html> activates dark: variants */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -50,6 +51,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
 }
 
 /* Smooth colour transitions when toggling theme */

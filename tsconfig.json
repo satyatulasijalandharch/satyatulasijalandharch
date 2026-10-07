@@ -24,6 +24,18 @@
       "@styles/*": [
         "./src/styles/*"
       ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@types": [
+        "./src/types/index.ts"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@data/*": [
+        "./src/data/*"
+      ],
       "@content/*": [
         "./src/content/*"
       ]

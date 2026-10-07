@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Cloud Platforms",
+        "description": "AWS (EC2, ECS, Lambda, Route 53, CloudWatch, Bedrock), OCI, Cloudflare, Supabase, Vercel"
+    },
+    {
+        "title": "Infrastructure as Code",
+        "description": "Terraform, AWS CDK, Docker, DevContainers, Reusable GitHub Action Workflows"
+    },
+    {
+        "title": "CI/CD & GitOps",
+        "description": "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms"
+    },
+    {
+        "title": "Security & Governance",
+        "description": "AWS Organizations, IAM Identity Center (SSO), Least Privilege RBAC, Secret Scanning & Key Rotation"
+    }
+]

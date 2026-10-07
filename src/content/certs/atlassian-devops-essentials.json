@@ -5,10 +5,8 @@
   "validUntil": "Lifetime",
   "credentialUrl": "https://www.linkedin.com/in/satyatulasijalandharch",
   "skills": [
-    "DevOps Culture",
-    "Jira Software",
-    "Agile Sprints",
-    "Continuous Delivery"
+    "Continuous Delivery",
+    "Cloud Security"
   ],
-  "order": 4
+  "order": 3
 }

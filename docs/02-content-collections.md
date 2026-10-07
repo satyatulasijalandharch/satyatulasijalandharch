@@ -6,25 +6,24 @@ This document outlines the Astro Content Layer architecture in `src/content.conf
 
 Astro 7 uses the Content Layer API. Collections are configured in `src/content.config.ts` with `glob()` for each entry file. Astro's `file()` loader remains useful for single-file data, but this project no longer uses it for its collections.
 
-`glob()` discovers Markdown and JSON entries. Each certification and experience record lives in its own JSON file.
+`glob()` discovers Markdoc and JSON entries. Each certification and experience record lives in its own JSON file.
 
 ```
 src/content/
-├── blog/             # glob() -> Markdown articles
-│   ├── designing-event-driven-cloud-systems.md
-│   └── why-task-rightsizing-beats-savings-plans.md
+├── blog/             # glob() -> Markdoc (.mdoc) articles
+│   ├── designing-event-driven-cloud-systems.mdoc
+│   └── why-task-rightsizing-beats-savings-plans.mdoc
 ├── certs/            # glob() -> one JSON file per certification
-│   ├── github-foundations.json
 │   ├── oci-foundations-associate.json
-│   ├── terraform-basics.json
+│   ├── github-foundations.json
 │   └── atlassian-devops-essentials.json
 ├── experience/       # glob() -> one JSON file per role
 │   ├── marumitra-cloud-engineer.json
 │   ├── codecafe-devops-engineer.json
 │   └── tezhire-devops-engineer.json
-├── work/             # glob() -> Markdown case studies
-│   ├── finops-optimization-engine.md
-│   └── multi-region-delivery-pipeline.md
+├── work/             # glob() -> Markdoc (.mdoc) case studies
+│   ├── finops-optimization-engine.mdoc
+│   └── multi-region-delivery-pipeline.mdoc
 └── skills.json       # Keystatic Singleton -> centralized technical skills ledger
 ```
 
@@ -32,7 +31,7 @@ src/content/
 
 Keystatic manages all four collections and the skills singleton through the local Admin UI. Run `npm run dev`, then open `http://localhost:4321/keystatic`. The development config registers Keystatic only for the dev command. Astro runs on Node.js locally, which Keystatic needs for filesystem storage. Production builds do not register the Admin route.
 
-Blog and work entries stay as `.md` files with frontmatter and Markdown bodies. Certification and experience entries are individual JSON files. Skills are centralized in `src/content/skills.json` as a Keystatic Singleton, feeding searchable `fields.multiselect` inputs across `certs`, `experience`, and `work`.
+Blog and work entries stay as `.mdoc` files with frontmatter and Markdoc bodies. Certification and experience entries are individual JSON files. Skills are centralized in `src/content/skills.json` as a Keystatic Singleton, feeding searchable `fields.multiselect` inputs across `certs`, `experience`, and `work`.
 
 Keystatic saves content directly into the repository. Review and commit those content changes as usual; the existing deployment workflow publishes committed content. Cover images uploaded in the Admin UI go under `src/assets/images/content`.
 
@@ -44,7 +43,7 @@ Keystatic saves content directly into the repository. Review and commit those co
 
 Used for engineering case studies and portfolio project highlights.
 
-- **Loader**: `glob({ base: "./src/content/work", pattern: ["*.md", "**/*.md"] })`
+- **Loader**: `glob({ base: "./src/content/work", pattern: ["*.{md,mdoc}", "**/*.{md,mdoc}"] })`
 - **Schema**:
 
 ```typescript
@@ -74,7 +73,7 @@ z.object({
 
 Technical articles and engineering writing.
 
-- **Loader**: `glob({ base: "./src/content/blog", pattern: ["*.md", "**/*.md"] })`
+- **Loader**: `glob({ base: "./src/content/blog", pattern: ["*.{md,mdoc}", "**/*.{md,mdoc}"] })`
 - **Schema**:
 
 ```typescript

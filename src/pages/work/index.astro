@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-import ProjectCard from "@components/ProjectCard.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import { getSortedWork } from "@lib/collections";
+import ProjectCard from "@components/common/ProjectCard.astro";
 
-const works = (await getCollection("work")).sort(
-    (a, b) => a.data.order - b.data.order,
-);
+const works = await getSortedWork();
 ---
 
 <BaseLayout
@@ -13,23 +12,11 @@ const works = (await getCollection("work")).sort(
     description="Detailed architectural breakdowns and production case studies in AWS platforms, Terraform, Docker, and zero-downtime CI/CD."
 >
     <div class="space-y-10">
-        <header class="border-b border-border pb-6 space-y-2">
-            <div class="text-xs uppercase tracking-wider text-text-muted">
-                ARCHITECTURAL DOSSIER
-            </div>
-            <h1
-                class="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary"
-            >
-                Selected Work &amp; Case Studies
-            </h1>
-            <p
-                class="text-sm sm:text-base text-text-secondary max-w-2xl leading-relaxed"
-            >
-                Production infrastructure deployments, FinOps automation
-                engines, and reliable release pipelines designed and operated
-                across AWS, OCI, and modern cloud platforms.
-            </p>
-        </header>
+        <PageHeader
+            eyebrow="ARCHITECTURAL DOSSIER"
+            title="Selected Work & Case Studies"
+            description="Production infrastructure deployments, FinOps automation engines, and reliable release pipelines designed and operated across AWS, OCI, and modern cloud platforms."
+        />
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {

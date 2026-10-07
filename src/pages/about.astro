@@ -1,67 +1,24 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import Portrait from "@components/Portrait.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import Portrait from "@components/common/Portrait.astro";
 import AcademicRow from "@components/about/AcademicRow.astro";
 import SkillCard from "@components/about/SkillCard.astro";
-
-const skills = [
-    {
-        title: "Cloud Platforms",
-        description:
-            "AWS (EC2, ECS, Lambda, Route 53, CloudWatch, Bedrock), OCI, Cloudflare, Supabase, Vercel",
-    },
-    {
-        title: "Infrastructure as Code",
-        description:
-            "Terraform, AWS CDK, Docker, DevContainers, Reusable GitHub Action Workflows",
-    },
-    {
-        title: "CI/CD & GitOps",
-        description:
-            "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms",
-    },
-    {
-        title: "Governance & Tooling",
-        description:
-            "AWS Organizations, IAM Identity Center (SSO), Passbolt, Bitwarden, Claude Code, Jira",
-    },
-];
-
-const academicItems = [
-    {
-        title: "R L Jalappa Institute of Technology",
-        date: "2020 — 2024",
-        description:
-            "Bachelor of Engineering in Computer Science & Engineering • Bengaluru",
-    },
-    {
-        title: "Automated DevOps Pipeline For Deploying MERN Stack Web Application in Kubernetes on AWS",
-        date: "May 2024",
-        description: "Published Research Paper • IJRAR",
-        url: "https://ijrar.org/viewfull.php?p_id=IJRAR24B2826",
-    },
-];
+import { buildProfileSchema } from "@lib/schemas";
+import skills from "@data/competencies.json";
+import publicationItems from "@data/publications.json";
 
 const aboutURL = new URL("/about", Astro.site ?? Astro.url.origin).href;
-const profileSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "@id": `${aboutURL}#profile`,
-    url: aboutURL,
-    inLanguage: "en",
-    mainEntity: {
-        "@type": "Person",
-        "@id": `${aboutURL}#person`,
-        name: "Satya Tulasi Jalandhar C H",
-        url: aboutURL,
-        jobTitle: "Cloud & DevOps Engineer",
-        sameAs: [
-            "https://www.linkedin.com/in/satyatulasijalandharch",
-            "https://github.com/satyatulasijalandharch",
-        ],
-        knowsAbout: skills.map((skill) => skill.title),
-    },
-};
+const profileSchema = buildProfileSchema({
+    profileUrl: aboutURL,
+    name: "Satya Tulasi Jalandhar C H",
+    jobTitle: "Cloud & DevOps Engineer",
+    sameAs: [
+        "https://www.linkedin.com/in/satyatulasijalandharch",
+        "https://github.com/satyatulasijalandharch",
+    ],
+    knowsAbout: skills.map((skill) => skill.title),
+});
 ---
 
 <BaseLayout
@@ -69,22 +26,12 @@ const profileSchema = {
     description="Background, career timeline, operating principles, and engineering philosophy of Satya Tulasi Jalandhar C H."
     jsonLd={profileSchema}
 >
-    <div class="space-y-12 max-w-3xl mx-auto">
-        <header class="border-b border-border pb-8 space-y-4">
-            <div class="text-xs uppercase tracking-wider text-text-muted">
-                BACKGROUND &amp; PHILOSOPHY
-            </div>
-            <h1
-                class="text-2xl sm:text-4xl font-semibold tracking-tight text-text-primary"
-            >
-                Satya Tulasi Jalandhar C H
-            </h1>
-            <p class="text-base text-text-secondary leading-relaxed">
-                Cloud &amp; DevOps Engineer with 2+ years of hands-on experience
-                designing and operating multi-cloud infrastructure across AWS,
-                OCI, and modern web platforms.
-            </p>
-        </header>
+    <div class="space-y-10 sm:space-y-12">
+        <PageHeader
+            eyebrow="BACKGROUND & PHILOSOPHY"
+            title="Satya Tulasi Jalandhar C H"
+            description="Cloud & DevOps Engineer with 2+ years of hands-on experience designing and operating multi-cloud infrastructure across AWS, OCI, and modern web platforms."
+        />
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
             <div class="sm:col-span-1">
@@ -128,14 +75,14 @@ const profileSchema = {
 
         <section class="space-y-4 pt-6 border-t border-border text-sm">
             <h2 class="text-xl font-semibold tracking-tight text-text-primary">
-                Academic Background &amp; Publications
+                Research &amp; Publications
             </h2>
             <div class="space-y-3">
                 {
-                    academicItems.map((item, index) => (
+                    publicationItems.map((item, index) => (
                         <div
                             class={
-                                index < academicItems.length - 1
+                                index < publicationItems.length - 1
                                     ? "border-b border-border pb-3"
                                     : ""
                             }

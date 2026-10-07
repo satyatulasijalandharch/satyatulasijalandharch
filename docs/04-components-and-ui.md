@@ -24,12 +24,18 @@ src/
     ├── about/                # Modular about page items
     │   ├── SkillCard.astro
     │   └── AcademicRow.astro
-    ├── CertCard.astro        # Certification row card
-    ├── Portrait.astro        # Image optimization component
-    ├── ProjectCard.astro     # Work case study card
-    ├── ResumeButton.astro    # Resume link button
-    ├── ThemeProvider.astro   # FOUC prevention script
-    └── ThemeToggle.astro     # Tri-state theme switcher button
+    ├── blog/                 # Blog list row items
+    │   └── BlogPostRow.astro
+    ├── certs/                # Certification ledger components
+    │   └── CertTable.astro
+    ├── common/               # Cross-cutting UI components
+    │   ├── CertCard.astro    # Certification row card
+    │   ├── Portrait.astro    # Image optimization component
+    │   ├── ProjectCard.astro # Work case study card
+    │   └── ResumeButton.astro# Resume link button
+    └── theme/                # Theme management system
+        ├── ThemeProvider.astro # FOUC prevention script
+        └── ThemeToggle.astro   # Tri-state theme switcher button
 ```
 
 ---
@@ -63,7 +69,7 @@ The outer HTML document shell for every route on the site.
 
 ### `Container.astro`
 
-- **Purpose**: Restricts max content width to `max-w-5xl` (64rem / 1024px) with responsive horizontal padding (`px-4 sm:px-6 lg:px-8`).
+- **Purpose**: Controls layout width with responsive bounds: `max-w-7xl` on desktop up to `2xl:max-w-screen-2xl` (1536px) on ultra-wide screens, with adaptive horizontal padding (`px-4 sm:px-6 lg:px-8 xl:px-12`).
 - **Styling**: Adds hairline lateral borders (`border-x border-border/80`) to create a consistent vertical frame.
 
 ### `SiteHeader.astro`
@@ -85,9 +91,23 @@ The outer HTML document shell for every route on the site.
   - Social profiles: GitHub, LinkedIn, RSS link.
   - Interactive "Back to top" button with smooth window scrolling.
 
+### `PageHeader.astro`
+
+- **Purpose**: Reusable standardized header block for subpages (`about`, `certs`, `work`, `blog`).
+- **Props**:
+  - `eyebrow?: string`: Uppercase category label (e.g., `WRITING & ANALYSIS`).
+  - `title: string`: Main H1 heading.
+  - `description?: string`: Subtitle narrative text.
+  - `class?: string`: Optional outer CSS overrides.
+- **Slot**: Default slot for optional actions or badges below the description.
+
 ---
 
 ## Reusable Core Components
+
+### `ThemeProvider.astro`
+
+## Theme System (`src/components/theme/`)
 
 ### `ThemeProvider.astro`
 
@@ -100,11 +120,15 @@ The outer HTML document shell for every route on the site.
 - **State Machine**: Cycles sequentially: `auto` -> `light` -> `dark` -> `auto`.
 - **UI**: Renders 3 SVGs (Monitor for Auto, Sun for Light, Moon for Dark), switching active icon via CSS data-attribute selectors.
 
+---
+
+## Common Components (`src/components/common/`)
+
 ### `ProjectCard.astro`
 
 - **Purpose**: Card component for engineering case studies.
 - **Props**:
-  - `entry: CollectionEntry<'work'>`
+  - `work: WorkEntry`
   - `index?: number` (0-padded index display, e.g., `01`)
 - **UI Elements**: Company name, role, index counter, title, description, highlighted metric badge, technology stack pills, and link to `/work/[id]`.
 
@@ -112,7 +136,7 @@ The outer HTML document shell for every route on the site.
 
 - **Purpose**: Responsive ledger row for professional certifications.
 - **Props**:
-  - `cert: CollectionEntry<'certs'>`
+  - `cert: CertEntry`
 - **UI Elements**: Certification title, competencies, issuer, issue date, and accessible verification link. Details stack on mobile and align in ledger columns on desktop.
 
 ### `Portrait.astro`
@@ -120,7 +144,9 @@ The outer HTML document shell for every route on the site.
 - **Purpose**: High-contrast, responsive profile portrait image.
 - **Props**:
   - `class?: string`
-  - `size?: "sm" | "md" | "lg"`
+  - `imageClass?: string`
+  - `width?: number`
+  - `height?: number`
 - **Implementation**: Uses Astro's `<Image />` component with `src/assets/images/profile.png`, webp conversion, and fixed aspect ratios.
 
 ### `ResumeButton.astro`
@@ -130,6 +156,22 @@ The outer HTML document shell for every route on the site.
   - `variant?: "pill" | "link"`
   - `class?: string`
 - **Destination**: Links externally to hosted RxResume profile with `target="_blank"` and `rel="noopener noreferrer"`.
+
+---
+
+## Blog & Cert Components
+
+### `src/components/blog/BlogPostRow.astro`
+
+- **Purpose**: Modular article row for the `/blog` index list.
+- **Props**: `post: BlogEntry`
+- **UI Elements**: Publication date (short month/year), title link, topic badge, read time.
+
+### `src/components/certs/CertTable.astro`
+
+- **Purpose**: Table header and mapped `CertCard` ledger items.
+- **Props**: `certs: CertEntry[]`
+- **UI Elements**: Responsive column headers (Date, Credential, Issuer, Verify) and list of cert items with empty state handling.
 
 ---
 
