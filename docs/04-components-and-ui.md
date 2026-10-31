@@ -155,7 +155,7 @@ The outer HTML document shell for every route on the site.
 - **Props**:
   - `variant?: "pill" | "link"`
   - `class?: string`
-- **Destination**: Links externally to hosted RxResume profile with `target="_blank"` and `rel="noopener noreferrer"`.
+- **Destination**: Links externally to hosted resume at `https://resume.stjch.in/` with `target="_blank"` and `rel="noopener noreferrer"`.
 
 ---
 
