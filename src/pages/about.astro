@@ -7,6 +7,7 @@ import SkillCard from "@components/about/SkillCard.astro";
 import { buildProfileSchema } from "@lib/schemas";
 import skills from "@data/competencies.json";
 import publicationItems from "@data/publications.json";
+import educationItems from "@data/education.json";
 
 const aboutURL = new URL("/about", Astro.site ?? Astro.url.origin).href;
 const profileSchema = buildProfileSchema({
@@ -30,7 +31,7 @@ const profileSchema = buildProfileSchema({
         <PageHeader
             eyebrow="BACKGROUND & PHILOSOPHY"
             title="Satya Tulasi Jalandhar C H"
-            description="Cloud & DevOps Engineer with 2+ years of hands-on experience designing and operating multi-cloud infrastructure across AWS, OCI, and modern web platforms."
+            description="Cloud & DevOps Engineer with 2+ years of experience building and automating high-availability cloud infrastructure on AWS, Terraform, AWS CDK, and serverless architectures."
         />
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 items-start">
@@ -52,8 +53,9 @@ const profileSchema = buildProfileSchema({
                 <p>
                     Rather than introducing heavyweight orchestration for modest
                     workloads, I prioritize right-sizing, deterministic
-                    Infrastructure as Code (Terraform &amp; AWS CDK), and
-                    automated CI/CD safeguards that eliminate human error.
+                    Infrastructure as Code (Terraform &amp; AWS CDK), secretless
+                    OIDC CI/CD pipelines, resilient serverless APIs, and
+                    continuous cost optimization.
                 </p>
             </div>
         </div>
@@ -68,6 +70,42 @@ const profileSchema = buildProfileSchema({
                         <SkillCard title={skill.title}>
                             {skill.description}
                         </SkillCard>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="space-y-4 pt-6 border-t border-border text-sm">
+            <h2 class="text-xl font-semibold tracking-tight text-text-primary">
+                Education &amp; Academic Credentials
+            </h2>
+            <div class="space-y-3">
+                {
+                    educationItems.map((item, index) => (
+                        <div
+                            class={
+                                index < educationItems.length - 1
+                                    ? "border-b border-border pb-3"
+                                    : ""
+                            }
+                        >
+                            <AcademicRow title={item.degree} date={item.period}>
+                                <span>{item.institution} &bull; {item.location}</span>
+                                {item.url && (
+                                    <>
+                                        {" "}
+                                        <a
+                                            href={item.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="font-medium text-text-primary underline underline-offset-2"
+                                        >
+                                            Visit institution
+                                        </a>
+                                    </>
+                                )}
+                            </AcademicRow>
+                        </div>
                     ))
                 }
             </div>

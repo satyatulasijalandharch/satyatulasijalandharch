@@ -1,18 +1,26 @@
 [
     {
-        "title": "Cloud Platforms",
-        "description": "AWS (EC2, ECS, Lambda, Route 53, CloudWatch, Bedrock), OCI, Cloudflare, Supabase, Vercel"
+        "title": "Cloud Infrastructure (AWS)",
+        "description": "EC2, VPC, S3, Lambda, API Gateway, AppSync, DynamoDB, CloudFront, Route 53, CloudWatch, IAM, AWS Organizations, IAM Identity Center, Amazon Bedrock"
     },
     {
-        "title": "Infrastructure as Code",
-        "description": "Terraform, AWS CDK, Docker, DevContainers, Reusable GitHub Action Workflows"
+        "title": "Infrastructure as Code (IaC)",
+        "description": "Terraform, AWS CDK v2 (Python, TypeScript), CloudFormation"
     },
     {
-        "title": "CI/CD & GitOps",
-        "description": "GitHub Actions, ArgoCD, Jenkins, Docker Compose, automated rollback mechanisms"
+        "title": "CI/CD & Automation",
+        "description": "GitHub Actions (OIDC Federation, Reusable Workflows), Docker Buildx, Semantic Release, Bash, Python"
     },
     {
-        "title": "Security & Governance",
-        "description": "AWS Organizations, IAM Identity Center (SSO), Least Privilege RBAC, Secret Scanning & Key Rotation"
+        "title": "Linux & Web Servers",
+        "description": "Linux (Ubuntu, Debian), Nginx (Reverse Proxy, SSL/TLS, WebSockets), PM2, Systemd, SSH"
+    },
+    {
+        "title": "Containers & Runtime",
+        "description": "Docker, Docker Compose, Multi-stage builds, Container Networking"
+    },
+    {
+        "title": "Databases & Storage",
+        "description": "DynamoDB (Single-table, PITR, GSIs), Aurora Serverless v2, PostgreSQL, Redis, S3"
     }
 ]
