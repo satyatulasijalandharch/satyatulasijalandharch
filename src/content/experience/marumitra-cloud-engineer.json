@@ -1,21 +1,23 @@
 {
   "company": "MaruMitra",
   "role": "Cloud Engineer",
-  "period": "Jul 2026 — Present",
+  "period": "Jul 2026 – Sep 2026",
   "location": "Jaipur, Rajasthan, India",
-  "focus": "Deploy and maintain Next.js & React Vite workloads on Vercel; managed GitHub Org permissions and secret governance across Actions & Codespaces.",
+  "focus": "Architected serverless cloud backends using AWS Amplify & AWS CDK, engineered high-throughput GraphQL APIs via AWS AppSync, and automated Amazon Bedrock pipeline delivery.",
   "highlights": [
-    "Deploy and maintain Next.js and React Vite applications across environments using Vercel.",
-    "Configure Vercel analytics and monitoring to track performance and Core Web Vitals.",
-    "Manage GitHub organization permissions, access control, and secret management across GitHub Actions and Codespaces.",
-    "Integrate Supabase backend services for database connectivity and authentication."
+    "Architected serverless cloud backends using AWS Amplify and AWS CDK, automating branch-based preview and production environments.",
+    "Engineered high-throughput API workflows using AWS AppSync (GraphQL), Lambda, DynamoDB, and S3 with time-limited signed URLs.",
+    "Integrated Amazon Bedrock models into serverless pipelines, automating delivery via GitHub Actions with build caching."
   ],
   "stack": [
-    "Vercel",
-    "Next.js",
-    "Supabase",
-    "GitHub Actions",
-    "Claude Code"
+    "AWS Amplify",
+    "AWS CDK",
+    "AWS AppSync",
+    "Lambda",
+    "DynamoDB",
+    "S3",
+    "Amazon Bedrock",
+    "GitHub Actions"
   ],
   "order": 1
 }

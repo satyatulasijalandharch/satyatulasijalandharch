@@ -1,23 +1,26 @@
 {
   "company": "TezHire",
   "role": "DevOps Engineer",
-  "period": "2024 — 2025",
+  "period": "Apr 2024 – Sep 2025",
   "location": "Jaipur, Rajasthan, India",
-  "focus": "Architected AWS CDK & Terraform IaC, built CI/CD pipelines (velocity +40%), integrated Bedrock AI APIs, and achieved 30% AWS cost reduction via rightsizing.",
+  "focus": "Built modular multi-environment IaC using AWS CDK v2 and Terraform (-50% errors), implemented secretless OIDC CI/CD, cut DB spend by 30%, and integrated Bedrock & CloudWatch (-45% MTTR).",
   "highlights": [
-    "Architected and deployed cloud infrastructure using AWS CDK and Terraform for dev, staging, and prod environments (-50% provisioning errors).",
-    "Managed multiple hosted zones in AWS Route 53 with AWS CDK across environments.",
-    "Automated CI/CD pipelines using GitHub Actions, boosting deployment velocity by 40%.",
-    "Led team to build serverless APIs with AWS Lambda, API Gateway, and DynamoDB (98% uptime).",
-    "Optimized cloud costs via Auto Scaling and usage analysis, achieving 30% reduction in monthly AWS expenses."
+    "Built modular, multi-environment cloud infrastructure using AWS CDK v2 and Terraform, cutting provisioning errors by 50%.",
+    "Implemented secretless CI/CD in GitHub Actions via AWS IAM OIDC federation, eliminating static AWS access keys.",
+    "Cut compute costs and eliminated cold starts on high-traffic paths via direct API Gateway to DynamoDB/S3 VTL mapping templates.",
+    "Deployed on-demand data storage with DynamoDB (PITR, TTL, GSIs) and Aurora Serverless v2, reducing monthly AWS database spend by 30%.",
+    "Integrated Amazon Bedrock for automated API evaluations and centralized monitoring via CloudWatch alarms/dashboards, reducing MTTR by 45%."
   ],
   "stack": [
     "AWS CDK",
     "Terraform",
+    "GitHub Actions",
+    "Amazon Bedrock",
+    "API Gateway",
     "Lambda",
     "DynamoDB",
-    "Docker",
-    "GitHub Actions"
+    "Aurora Serverless v2",
+    "CloudWatch"
   ],
   "order": 3
 }

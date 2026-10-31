@@ -37,6 +37,15 @@ Keystatic saves content directly into the repository. Review and commit those co
 
 ---
 
+## Static Data Files (`src/data/`)
+
+In addition to Content Layer collections, structured JSON datasets power modular sections of the site:
+- `src/data/competencies.json`: 6 technical competency domains rendered on `/about`.
+- `src/data/education.json`: Academic credentials and degree records rendered on `/about`.
+- `src/data/publications.json`: Peer-reviewed research papers and publications.
+
+---
+
 ## Collection Schemas
 
 ### 1. `work` Collection

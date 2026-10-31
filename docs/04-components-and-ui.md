@@ -179,7 +179,7 @@ The outer HTML document shell for every route on the site.
 
 | Component                 | Responsibility                                                                                         | Queried Content         |
 | :------------------------ | :----------------------------------------------------------------------------------------------------- | :---------------------- |
-| `HeroSection.astro`       | Status badge ("Available for Roles"), page H1, bio elevator pitch, `Portrait` image, and CTA actions. | Static props            |
+| `HeroSection.astro`       | Location, page H1, bio elevator pitch, and `Portrait` image.                                           | Static props            |
 | `ImpactMetrics.astro`     | 3-column metric banner highlighting business outcomes using `MetricItem`.                              | Static props            |
 | `MetricItem.astro`        | Individual numeric stat with tabular numbers and descriptive label.                                    | Static props            |
 | `FeaturedWork.astro`      | Grid of featured project case studies using `ProjectCard`.                                             | `work` collection       |

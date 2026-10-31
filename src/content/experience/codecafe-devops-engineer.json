@@ -1,23 +1,25 @@
 {
   "company": "CodeCafe Lab IT Solutions",
   "role": "DevOps Engineer",
-  "period": "Feb 2026 — Jul 2026",
+  "period": "Feb 2026 – Jul 2026",
   "location": "Jaipur, Rajasthan, India",
-  "focus": "Managed Linux & AWS fleets, migrated ERPNext to Frappe Cloud (98% uptime), consolidated DNS into AWS Route 53 & Cloudflare, and established AWS IAM Identity Center (SSO).",
+  "focus": "Hardened Ubuntu EC2 environments via Terraform, engineered secure application networking with Route 53 & Cloudflare, and sustained 99.9% uptime with PM2 clustering.",
   "highlights": [
-    "Managed AWS and Linux servers supporting web applications, backends, and admin panels.",
-    "Deployed Frappe and ERPNext apps on Ubuntu servers via Docker; migrated ERPNext setup to Frappe Cloud (98% uptime, daily backups).",
-    "Consolidated multiple domains from GoDaddy/Hostinger to AWS Route 53 with dedicated environment hosted zones.",
-    "Managed multi-account AWS structure using AWS Organizations and AWS IAM Identity Center (SSO).",
-    "Configured Cloudflare DNS, DDoS protection, origin server security, and SSL/TLS encryption."
+    "Engineered secure application networking across AWS Route 53, Cloudflare, and AWS Security Groups, managing DNS routing, SSL/TLS termination, and origin server access restriction.",
+    "Provisioned and configured AWS EC2 (Ubuntu) production hosting environments using Terraform, managing server hardening and process dependencies.",
+    "Engineered zero-downtime CI/CD via GitHub Actions and PM2 clustering, sustaining 99.9% uptime across 15+ services.",
+    "Tuned Nginx reverse proxies for WebSocket upgrades and request routing; centralized AWS account access via AWS Organizations and IAM Identity Center (SSO)."
   ],
   "stack": [
     "AWS EC2",
-    "Route 53",
-    "Cloudflare",
-    "Docker",
+    "Terraform",
+    "GitHub Actions",
     "Nginx",
-    "Passbolt"
+    "PM2",
+    "AWS Route 53",
+    "Cloudflare",
+    "AWS Organizations",
+    "IAM Identity Center"
   ],
   "order": 2
 }
